@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Comfortaa', cursive;
+    font-family: 'Jost', sans-serif; 
+}
+
+
+.fondoInicio{
+    background-image: url(../imagenes/cancha_futbol.jpg);
+    min-height: 100vh;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
