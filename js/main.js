@@ -1,16 +1,19 @@
-let presupuesto = 4000;
+let miPresupuesto = 4000;
 let dineroGastado = 0;
 let sumatoriaPuntosFecha= 0;
+let misPuntosAcumulados = 0;
 const CANTIDAD_DE_JUGADORES_POR_EQUIPO = 5;
 const VALOR_JUGADOR_MEDIO = 500;
-let puntosAcumulados = 0;
+const PUNTOS_PARTIDO_GANADO = 3;
+const PUNTOS_PARTIDO_EMPATADO = 1;
+const PUNTAJE_MINIMO_JUGADOR_PREMIUM = 7;
 
 const jugadoresPlantel = []; //Crear un objeto equipoPropio que contenga este array de jugadores
  
 const equiposRivales = [];
 
-function agregarEquiposRivales(jugador){
-    equiposRivales.push(jugador);
+function agregarEquipoRival(equipo){
+    equiposRivales.push(equipo);
 }
 
 //FILTER - MAP
@@ -23,19 +26,19 @@ function validarCompra(jugador){
         if (tieneDineroSuficienteParaComprar(jugador)){
              completarCompra(jugador);
         }else{
-            alert("Su presupuesto es insuficiente. Contrate otro jugador más barato.");
+            alert("Su miPresupuesto es insuficiente. Contrate otro jugador más barato.");
         }
     }else{
         alert("Superó el límite de jugadores contratados");
     }
 }
 
-function tieneDineroSuficienteParaComprar(jugador){
-    return presupuesto >= jugador.valor;
-}
-
 function contratoMenosDeCincoJugadores(){
     return jugadoresPlantel.length < CANTIDAD_DE_JUGADORES_POR_EQUIPO;
+}
+
+function tieneDineroSuficienteParaComprar(jugador){
+    return miPresupuesto >= jugador.valor;
 }
 
 function contratoCincoJugadores(){
@@ -43,7 +46,7 @@ function contratoCincoJugadores(){
 }
 
 function completarCompra(jugador){
-    presupuesto -= jugador.valor;
+    miPresupuesto -= jugador.valor;
     dineroGastado += jugador.valor;
     jugadoresPlantel.push(jugador);
 }
@@ -51,7 +54,7 @@ function completarCompra(jugador){
 function venderJugador(idJugador){
     const index = jugadoresPlantel.findIndex(jugador => jugador.id === idJugador);
     if(index !== -1){
-        presupuesto += jugadoresPlantel[index].valor;
+        miPresupuesto += jugadoresPlantel[index].valor;
         dineroGastado -=  jugadoresPlantel[index].valor;
         jugadoresPlantel.splice(index, 1);
     }
@@ -62,9 +65,10 @@ function obtenerPuntajeRandom(max) {
   }
 
 function obtenerPuntajeRandomPremium(max) {
-    return Math.floor(Math.random() * max + 7);
+    return Math.floor(Math.random() * max + PUNTAJE_MINIMO_JUGADOR_PREMIUM);
   }
 
+//El jugador premium (los más caros), obtienen puntajes mayores a 7
 function asignarPuntajeAJugador(idJugador){
     const index = jugadoresPlantel.findIndex(jugador => jugador.id === idJugador);
     if(index !== -1){
@@ -81,55 +85,61 @@ function sumatoriaPuntosJugadores(){
     sumatoriaPuntosFecha = jugadoresPlantel.map(jugador => jugador.puntaje).reduce((acum, elem) => acum + elem, 0);
 }
 
-function asignarPuntajeEquipoRival(idEquipoRival){
-    const index = equiposRivales.findIndex(equipoContrario => equipoContrario.id === idEquipoRival);
+function asignarPuntajeEquipoRival(idEquipo){
+    const index = obtenerIndexDeEquipoRival(idEquipo);
     if(index !== -1){
         equiposRivales[index].puntosFecha = obtenerPuntajeRandom(51);
     }
 }
 
-function sumarPuntosDelPartidoPrincipal(idEquipoContrario){
-      const index = equiposRivales.findIndex(equipoContrario => equipoContrario.id === idEquipoContrario);
+function obtenerIndexDeEquipoRival(idEquipo){
+    return equiposRivales.findIndex(equipo => equipo.id === idEquipo);
+}
+
+//Partido entre equipo propio y el rival
+function acumularPuntosEquiposPrincipales(idEquipo){
+      const index = obtenerIndexDeEquipoRival(idEquipo);
       if(index !== -1){
         if (sumatoriaPuntosFecha > equiposRivales[index].puntosFecha){
-            console.log("GANASTE!");
-            puntosAcumulados += 3;
+            misPuntosAcumulados += PUNTOS_PARTIDO_GANADO;
         }else{
             if(sumatoriaPuntosFecha < equiposRivales[index].puntosFecha){
-                console.log("PERDISTE!");
-                equiposRivales[index].puntosAcumulados += 3;
+                equiposRivales[index].puntosAcumulados += PUNTOS_PARTIDO_GANADO;
             }else{
-                console.log("EMPATE!");
-                puntosAcumulados += 1;
-                equiposRivales[index].puntosAcumulados += 1;
+                misPuntosAcumulados += PUNTOS_PARTIDO_EMPATADO;
+                equiposRivales[index].puntosAcumulados += PUNTOS_PARTIDO_EMPATADO;
                 }
             }
         } 
 }
 
-function asignarPuntosEquiposSecundarios(idEquipoLocal, idEquipoVisitante){
-    const indexEquipoLocal = equiposRivales.findIndex(equipoLocal => equipoLocal.id === idEquipoLocal);
-    const indexEquipoVisitante = equiposRivales.findIndex(equipoVisitante => equipoVisitante.id === idEquipoVisitante);
+//Determina los resultados del partido secundario (el que no juega mi equipo) 
+//y suma puntos por partido ganado y empatado al acumulador (puntosAcumulados)
+
+
+function acumularPuntosEquiposSecundarios(idEquipoLocal, idEquipoVisitante){
+    const indexEquipoLocal = obtenerIndexDeEquipoRival(idEquipoLocal);
+    const indexEquipoVisitante = obtenerIndexDeEquipoRival(idEquipoVisitante);
     
     if(indexEquipoLocal !== -1 && indexEquipoVisitante !== -1){
         equiposRivales[indexEquipoLocal].puntosFecha= obtenerPuntajeRandom(51);
         equiposRivales[indexEquipoVisitante].puntosFecha= obtenerPuntajeRandom(51);
 
         if(equiposRivales[indexEquipoLocal].puntosFecha > equiposRivales[indexEquipoVisitante].puntosFecha){
-            equiposRivales[indexEquipoLocal].puntosAcumulados += 3;
+            equiposRivales[indexEquipoLocal].puntosAcumulados += PUNTOS_PARTIDO_GANADO;
         }else{
             if(equiposRivales[indexEquipoLocal].puntosFecha < equiposRivales[indexEquipoVisitante].puntosFecha){
-                equiposRivales[indexEquipoVisitante].puntosAcumulados += 3;
+                equiposRivales[indexEquipoVisitante].puntosAcumulados += PUNTOS_PARTIDO_GANADO;
         }else{
-            equiposRivales[indexEquipoLocal].puntosAcumulados += 1;
-            equiposRivales[indexEquipoVisitante].puntosAcumulados += 1;
+            equiposRivales[indexEquipoLocal].puntosAcumulados += PUNTOS_PARTIDO_EMPATADO;
+            equiposRivales[indexEquipoVisitante].puntosAcumulados += PUNTOS_PARTIDO_EMPATADO;
         }
     }
 }}
 
-agregarEquiposRivales({id: 1, nombre: "Equipo1", puntosFecha: 0, puntosAcumulados: 0});
-agregarEquiposRivales({id: 2, nombre: "Equipo2", puntosFecha: 0, puntosAcumulados: 0});
-agregarEquiposRivales({id: 3, nombre: "Equipo3", puntosFecha: 0, puntosAcumulados: 0});
+agregarEquipoRival({id: 1, nombre: "Equipo1", puntosFecha: 0, puntosAcumulados: 0});
+agregarEquipoRival({id: 2, nombre: "Equipo2", puntosFecha: 0, puntosAcumulados: 0});
+agregarEquipoRival({id: 3, nombre: "Equipo3", puntosFecha: 0, puntosAcumulados: 0});
 
 validarCompra({id: 1, nombre: "Mono burgos", valor: 800, puntaje: 0});
 validarCompra({id: 2, nombre: "Pupi Zanetti", valor: 300, puntaje: 0});
@@ -139,7 +149,7 @@ validarCompra({id: 5, nombre: "Hernán Crespo", valor: 300, puntaje: 0});
 //validarCompra({id: 6, nombre: "Gabriel Batistuta", valor: 400}); -----> Alerta por superar el límite de jugadores
 //venderJugador(1); -----> Elimina jugador elegido por id
 
-//FECHA 1: TU EQUIPO VS EQUIPO1 y EQUIPO2 VS EQUIPO3
+//FECHA 1: MI EQUIPO VS EQUIPO1 y EQUIPO2 VS EQUIPO3
 asignarPuntajeAJugador(1);
 asignarPuntajeAJugador(2);
 asignarPuntajeAJugador(3);
@@ -147,14 +157,14 @@ asignarPuntajeAJugador(4);
 asignarPuntajeAJugador(5);
 sumatoriaPuntosJugadores();
 asignarPuntajeEquipoRival(1);
-sumarPuntosDelPartidoPrincipal(1);
-asignarPuntosEquiposSecundarios(2,3);
-console.log("TU EQUIPO VS EQUIPO1 y EQUIPO2 VS EQUIPO3")
-console.log("TU EQUIPO puntosFecha: " + sumatoriaPuntosFecha);
+acumularPuntosEquiposPrincipales(1);
+acumularPuntosEquiposSecundarios(2,3);
+console.log("|MI EQUIPO VS EQUIPO1| y |EQUIPO2 VS EQUIPO3|")
+console.log("MI EQUIPO puntosFecha: " + sumatoriaPuntosFecha);
 console.log("Equipo1 puntosFecha: " + equiposRivales[0].puntosFecha);
 console.log("Equipo2 puntosFecha: " + equiposRivales[1].puntosFecha);
 console.log("Equipo3 puntosFecha: " + equiposRivales[2].puntosFecha);
-console.log("MI EQUIPO puntos Acumulados: " + puntosAcumulados);
+console.log("MI EQUIPO puntos Acumulados: " + misPuntosAcumulados );
 console.log("EQUIPO1 puntos Acumulados: " + equiposRivales[0].puntosAcumulados);
 console.log("EQUIPO2 puntos Acumulados: " + equiposRivales[1].puntosAcumulados);
 console.log("EQUIPO3 puntos Acumulados: " + equiposRivales[2].puntosAcumulados);
@@ -167,14 +177,14 @@ asignarPuntajeAJugador(4);
 asignarPuntajeAJugador(5);
 sumatoriaPuntosJugadores();
 asignarPuntajeEquipoRival(2);
-sumarPuntosDelPartidoPrincipal(2);
-asignarPuntosEquiposSecundarios(1,3);
-console.log("TU EQUIPO VS EQUIPO2 y EQUIPO1 VS EQUIPO3");
-console.log("TU EQUIPO puntosFecha: " + sumatoriaPuntosFecha);
+acumularPuntosEquiposPrincipales(2);
+acumularPuntosEquiposSecundarios(1,3);
+console.log("|MI EQUIPO VS EQUIPO2| y |EQUIPO1 VS EQUIPO3|");
+console.log("MI EQUIPO puntosFecha: " + sumatoriaPuntosFecha);
 console.log("Equipo1 puntosFecha: " + equiposRivales[0].puntosFecha);
 console.log("Equipo2 puntosFecha: " + equiposRivales[1].puntosFecha);
 console.log("Equipo3 puntosFecha: " + equiposRivales[2].puntosFecha);
-console.log("MI EQUIPO puntos Acumulados: " + puntosAcumulados);
+console.log("MI EQUIPO puntos Acumulados: " + misPuntosAcumulados );
 console.log("EQUIPO1 puntos Acumulados: " + equiposRivales[0].puntosAcumulados);
 console.log("EQUIPO2 puntos Acumulados: " + equiposRivales[1].puntosAcumulados);
 console.log("EQUIPO3 puntos Acumulados: " + equiposRivales[2].puntosAcumulados);
@@ -187,21 +197,21 @@ asignarPuntajeAJugador(4);
 asignarPuntajeAJugador(5);
 sumatoriaPuntosJugadores();
 asignarPuntajeEquipoRival(3);
-sumarPuntosDelPartidoPrincipal(3);
-asignarPuntosEquiposSecundarios(1,2);
-console.log("TU EQUIPO VS EQUIPO3 y EQUIPO1 VS EQUIPO2");
-console.log("TU EQUIPO puntosFecha: " + sumatoriaPuntosFecha);
+acumularPuntosEquiposPrincipales(3);
+acumularPuntosEquiposSecundarios(1,2);
+console.log("|MI EQUIPO VS EQUIPO3| y |EQUIPO1 VS EQUIPO2|");
+console.log("MI EQUIPO puntosFecha: " + sumatoriaPuntosFecha);
 console.log("Equipo1 puntosFecha: " + equiposRivales[0].puntosFecha);
 console.log("Equipo2 puntosFecha: " + equiposRivales[1].puntosFecha);
 console.log("Equipo3 puntosFecha: " + equiposRivales[2].puntosFecha);
-console.log("MI EQUIPO puntos Acumulados: " + puntosAcumulados);
+console.log("MI EQUIPO puntos Acumulados: " + misPuntosAcumulados );
 console.log("EQUIPO1 puntos Acumulados: " + equiposRivales[0].puntosAcumulados);
 console.log("EQUIPO2 puntos Acumulados: " + equiposRivales[1].puntosAcumulados);
 console.log("EQUIPO3 puntos Acumulados: " + equiposRivales[2].puntosAcumulados);
 
 console.log("*****************");
 console.log("Dinero gastado: $ " + dineroGastado);
-console.log("Presupuesto disponible: $ " + presupuesto);
+console.log("Presupuesto disponible: $ " + miPresupuesto);
 console.log("Cantidad de jugadores contratados: " + jugadoresPlantel.length);
 console.log("Jugadores premium contratados: " + jugadoresPremiumContratados());
 console.log("Puntaje Mono Burgos: " + jugadoresPlantel[0].puntaje);
@@ -215,7 +225,7 @@ console.log("Puntaje Hernán Crespo: " + jugadoresPlantel[4].puntaje);
 - Que no se puedan calcular los puntajes más de una vez por fecha.
 - Que no se determine el ganador hasta no haber calculado todos los puntajes. 
 
-ADEMAS :
+ADEMÁS :
 -Tabla de posiciones.
 -Desempatar si 2 o más equipos sumaron igual cantidad de puntos al finalizar todos los partidos.
 */
