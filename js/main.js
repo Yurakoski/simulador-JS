@@ -8,10 +8,10 @@ const PUNTOS_PARTIDO_GANADO = 3;
 const PUNTOS_PARTIDO_EMPATADO = 1;
 const PUNTAJE_MINIMO_JUGADOR_PREMIUM = 7;
 
-const jugadoresPlantel = []; //Crear un objeto equipoPropio que contenga este array de jugadores
+const jugadoresDisponibles = [];
+const jugadoresPlantel = [];
 const equiposRivales = [];
 
-//----Desafío DOM-----
 
 let miEquipo = document.querySelector("#mi-equipo");
 console.log(miEquipo);
@@ -23,7 +23,6 @@ function mostrarMisJugadores(){
         miEquipo.appendChild(lista);
     }
 }
-//-----------------
 
 function agregarEquipoRival(equipo){
     equiposRivales.push(equipo);
@@ -39,7 +38,7 @@ function validarCompra(jugador){
         if (tieneDineroSuficienteParaComprar(jugador)){
              completarCompra(jugador);
         }else{
-            alert("Su miPresupuesto es insuficiente. Contrate otro jugador más barato.");
+            alert("Su presupuesto es insuficiente. Contrate otro jugador más barato.");
         }
     }else{
         alert("Superó el límite de jugadores contratados");
@@ -128,7 +127,6 @@ function acumularPuntosEquiposPrincipales(idEquipo){
 
 //Determina los resultados del partido secundario (el que no juega mi equipo) 
 //y suma puntos por partido ganado y empatado al acumulador (puntosAcumulados)
-
 
 function acumularPuntosEquiposSecundarios(idEquipoLocal, idEquipoVisitante){
     const indexEquipoLocal = obtenerIndexDeEquipoRival(idEquipoLocal);

@@ -39,14 +39,22 @@
     margin-left: 25rem;
 }
 
+p{
+    margin-bottom: 0;
+}
+
 .contenido{
     min-height: 100vh;
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-p{
-    margin-bottom: 0;
+#mi-equipo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #mi-equipo li{
@@ -58,4 +66,9 @@ p{
     background-color: white;
     border: 1px solid black;
     border-radius: 0.5rem;
+}
+
+#mi-equipo img{
+    width: 120px;
+    height: 120px;
 }
