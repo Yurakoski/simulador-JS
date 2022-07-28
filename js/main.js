@@ -13,14 +13,14 @@ const equiposRivales = [];
 
 //----Desafío DOM-----
 
-let puntajeJugadoresPlantel = document.querySelector("#puntajeJugadoresPlantel");
-console.log(puntajeJugadoresPlantel);
+let miEquipo = document.querySelector("#mi-equipo");
+console.log(miEquipo);
 
-function mostrarPuntajesJugadoresPlantel(fecha){ //Llamo a esta función luego de cada fecha
+function mostrarMisJugadores(){ 
     for(let jugador of jugadoresPlantel){
         let lista = document.createElement("li");
-        lista.innerHTML = `Fecha ${fecha}, ${jugador.nombre}: ${jugador.puntaje}`;
-        puntajeJugadoresPlantel.appendChild(lista);
+        lista.innerHTML = `<img src= "${jugador.img}"> ${jugador.nombre}`;
+        miEquipo.appendChild(lista);
     }
 }
 //-----------------
@@ -154,11 +154,11 @@ agregarEquipoRival({id: 1, nombre: "Equipo1", puntajeJugadoresFecha: 0, puntosAc
 agregarEquipoRival({id: 2, nombre: "Equipo2", puntajeJugadoresFecha: 0, puntosAcumulados: 0});
 agregarEquipoRival({id: 3, nombre: "Equipo3", puntajeJugadoresFecha: 0, puntosAcumulados: 0});
 
-validarCompra({id: 1, nombre: "Mono burgos", valor: 800, puntaje: 0});
-validarCompra({id: 2, nombre: "Pupi Zanetti", valor: 300, puntaje: 0});
-validarCompra({id: 3, nombre: "Lionel Messi", valor: 1000, puntaje: 0});
-validarCompra({id: 4, nombre: "Brujita Verón", valor: 1000, puntaje: 0});
-validarCompra({id: 5, nombre: "Hernán Crespo", valor: 300, puntaje: 0});
+validarCompra({id: 1, nombre: "Mono Burgos", img: "../imagenes/mono-burgos.jpg", valor: 800, puntaje: 0});
+validarCompra({id: 2, nombre: "Pupi Zanetti", img: "../imagenes/pupi-zanetti.jpg", valor: 300, puntaje: 0});
+validarCompra({id: 3, nombre: "Lionel Messi", img: "../imagenes/messi.jpg", valor: 1000, puntaje: 0});
+validarCompra({id: 4, nombre: "Brujita Verón", img: "../imagenes/veron.jpg", valor: 1000, puntaje: 0});
+validarCompra({id: 5, nombre: "Hernán Crespo", img: "../imagenes/crespo.jpg", valor: 300, puntaje: 0});
 //validarCompra({id: 6, nombre: "Gabriel Batistuta", valor: 400}); -----> Alerta por superar el límite de jugadores
 //venderJugador(1); -----> Elimina jugador elegido por id
 
@@ -182,7 +182,8 @@ console.log("EQUIPO1 puntos Acumulados: " + equiposRivales[0].puntosAcumulados);
 console.log("EQUIPO2 puntos Acumulados: " + equiposRivales[1].puntosAcumulados);
 console.log("EQUIPO3 puntos Acumulados: " + equiposRivales[2].puntosAcumulados);
 
-mostrarPuntajesJugadoresPlantel(1);
+mostrarMisJugadores()
+//mostrarPuntajesJugadoresPlantel(1);
 
 //FECHA 2: MI EQUIPO VS EQUIPO2 y EQUIPO1 VS EQUIPO3
 asignarPuntajeAJugador(1);
@@ -204,7 +205,7 @@ console.log("EQUIPO1 puntos Acumulados: " + equiposRivales[0].puntosAcumulados);
 console.log("EQUIPO2 puntos Acumulados: " + equiposRivales[1].puntosAcumulados);
 console.log("EQUIPO3 puntos Acumulados: " + equiposRivales[2].puntosAcumulados);
 
-mostrarPuntajesJugadoresPlantel(2);
+//mostrarPuntajesJugadoresPlantel(2);
 
 //FECHA 3:MI EQUIPO VS EQUIPO3 y EQUIPO1 VS EQUIPO2
 asignarPuntajeAJugador(1);
@@ -226,7 +227,7 @@ console.log("EQUIPO1 puntos Acumulados: " + equiposRivales[0].puntosAcumulados);
 console.log("EQUIPO2 puntos Acumulados: " + equiposRivales[1].puntosAcumulados);
 console.log("EQUIPO3 puntos Acumulados: " + equiposRivales[2].puntosAcumulados);
 
-mostrarPuntajesJugadoresPlantel(3);
+//mostrarPuntajesJugadoresPlantel(3);
 
 console.log("*****************");
 console.log("Dinero gastado: $ " + dineroGastado);

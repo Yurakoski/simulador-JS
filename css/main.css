@@ -5,11 +5,57 @@
     font-family: 'Jost', sans-serif; 
 }
 
-
 .fondoInicio{
-    background-image: url(../imagenes/cancha_futbol.jpg);
+    background-image: url(../imagenes/fondo-cancha.jpg);
     min-height: 100vh;
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
+}
+
+.navbar img{
+    width: 60px;
+    margin-left: 1rem;
+}
+
+.navbar{
+    background-color: rgb(72, 0, 188);
+}
+
+.nav-link{
+    font-size: 1.2rem;
+    color: white;
+}
+
+.nav-item{
+    padding-left: 2rem;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .show>.nav-link{
+    color: white;
+}
+
+.collapse, .navbar-collapse{
+    margin-left: 25rem;
+}
+
+.contenido{
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+p{
+    margin-bottom: 0;
+}
+
+#mi-equipo li{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0.5rem;
 }
