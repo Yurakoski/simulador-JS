@@ -8,40 +8,75 @@ const PUNTOS_PARTIDO_GANADO = 3;
 const PUNTOS_PARTIDO_EMPATADO = 1;
 const PUNTAJE_MINIMO_JUGADOR_PREMIUM = 7;
 
-const jugadoresDisponibles = [];
-const jugadoresPlantel = [];
-const equiposRivales = [];
+let jugadoresDisponibles = [
+       {id: 1, nombre: "Mono Burgos", img: "../imagenes/mono-burgos.jpg", valor: 800, puntaje: 0},
+       {id: 2, nombre: "Pupi Zanetti", img: "../imagenes/pupi-zanetti.jpg", valor: 300, puntaje: 0},
+       {id: 3, nombre: "Lionel Messi", img: "../imagenes/messi.jpg", valor: 1000, puntaje: 0},
+       {id: 4, nombre: "Brujita Verón", img: "../imagenes/veron.jpg", valor: 1000, puntaje: 0},
+       {id: 5, nombre: "Hernán Crespo", img: "../imagenes/crespo.jpg", valor: 300, puntaje: 0},
+       {id: 6, nombre: "Gabriel Batistuta", img: "../imagenes/bati.jpg", valor: 2000, puntaje: 0}
+    ];
 
+const equiposRivales = [
+        {id: 1, nombre: "Equipo1", puntajeJugadoresFecha: 0, puntosAcumulados: 0},
+        {id: 2, nombre: "Equipo2", puntajeJugadoresFecha: 0, puntosAcumulados: 0},
+        {id: 3, nombre: "Equipo3", puntajeJugadoresFecha: 0, puntosAcumulados: 0}
+    ];
+    
+let jugadoresPlantel = [];
+const cardsJugadoresDisponibles = document.querySelector("#cards-disponibles");
+const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
 
-let miEquipo = document.querySelector("#mi-equipo");
-console.log(miEquipo);
+mostrarJugadoresDisponibles();
+mostrarJugadoresPlantel();
 
-function mostrarMisJugadores(){ 
-    for(let jugador of jugadoresPlantel){
-        let lista = document.createElement("li");
-        lista.innerHTML = `<img src= "${jugador.img}"> ${jugador.nombre}`;
-        miEquipo.appendChild(lista);
-    }
+function mostrarJugadoresDisponibles(){ 
+    cardsJugadoresDisponibles.innerHTML = "";  //LO LIMPIA ANTES DE CARGAR EL ARRAY ACTUALIZADO
+    jugadoresDisponibles.forEach((jugador)=>{
+        const idBoton = `add-player${jugador.id}`
+        cardsJugadoresDisponibles.innerHTML += `<li><img src= "${jugador.img}"> 
+                                                ${jugador.nombre}<br>
+                                                $${jugador.valor}
+                                                <button id="${idBoton}">COMPRAR</button></li>`;
+    });
+    cargarEventListeners();
 }
 
-function agregarEquipoRival(equipo){
-    equiposRivales.push(equipo);
+function mostrarJugadoresPlantel(){
+    cardsMisJugadores.innerHTML ="";
+    jugadoresPlantel.forEach((jugador)=>{
+        const idBoton = `add-player${jugador.id}`;
+        cardsMisJugadores.innerHTML += `<li><img src= "${jugador.img}"> 
+                                        ${jugador.nombre}
+                                        <button id="${idBoton}">COMPRAR</button></li>`;
+    });
+ 
 }
 
-//FILTER - MAP
-function jugadoresPremiumContratados(){
-    return jugadoresPlantel.filter(jugador => jugador.valor > VALOR_JUGADOR_MEDIO).map(jugador => jugador.nombre);
+function cargarEventListeners(){ 
+    jugadoresDisponibles.forEach( (jugador) => {
+        const idBoton = `add-player${jugador.id}`
+        document.getElementById(idBoton).addEventListener("click", () => {
+        validarCompra(jugador)});
+        })
 }
 
-function validarCompra(jugador){
+function eliminarJugadorDeDisponibles(idJugador){
+    const index = jugadoresDisponibles.findIndex(jugador => jugador.id === idJugador);
+    if(index !== -1){
+        jugadoresDisponibles = jugadoresDisponibles.filter((jugador) => jugador.id !== idJugador);
+        mostrarJugadoresDisponibles();
+        }else{alert("No se encontró al jugador seleccionado")}
+}
+
+function validarCompra(jugador){  //****BOTON COMPRAR**** va a llamar a esta función
     if (contratoMenosDeCincoJugadores()){
         if (tieneDineroSuficienteParaComprar(jugador)){
+             eliminarJugadorDeDisponibles(jugador.id);
              completarCompra(jugador);
-        }else{
-            alert("Su presupuesto es insuficiente. Contrate otro jugador más barato.");
+            }else{alert("Su presupuesto es insuficiente. Contrate otro jugador más barato.");
         }
-    }else{
-        alert("Superó el límite de jugadores contratados");
+    }else{alert("Superó el límite de jugadores contratados");
     }
 }
 
@@ -61,6 +96,11 @@ function completarCompra(jugador){
     miPresupuesto -= jugador.valor;
     dineroGastado += jugador.valor;
     jugadoresPlantel.push(jugador);
+    mostrarJugadoresPlantel();
+}
+
+function agregarJugadorADisponibles(jugador){
+    jugadoresDisponibles.push(jugador);
 }
 
 function venderJugador(idJugador){
@@ -74,27 +114,31 @@ function venderJugador(idJugador){
 
 function obtenerPuntajeRandom(max) {
     return Math.floor(Math.random() * max);
-  }
+}
 
 function obtenerPuntajeRandomPremium(max) {
     return Math.floor(Math.random() * max + PUNTAJE_MINIMO_JUGADOR_PREMIUM);
-  }
+}
 
 //El jugador premium (los más caros), obtienen puntajes mayores a 7
 function asignarPuntajeAJugador(idJugador){
     const index = jugadoresPlantel.findIndex(jugador => jugador.id === idJugador);
     if(index !== -1){
         if(jugadoresPlantel[index].valor > VALOR_JUGADOR_MEDIO){
-             jugadoresPlantel[index].puntaje= obtenerPuntajeRandomPremium(4);
-       }else{
-             jugadoresPlantel[index].puntaje= obtenerPuntajeRandom(11);
-       }
+            jugadoresPlantel[index].puntaje= obtenerPuntajeRandomPremium(4);
+        }else{
+            jugadoresPlantel[index].puntaje= obtenerPuntajeRandom(11);
+        }
     }
 }
 
 //MAPEO Y SUMATORIA DE PUNTAJES
 function sumarPuntajeJugadores(){
     sumatoriaPuntajeFecha = jugadoresPlantel.map(jugador => jugador.puntaje).reduce((acum, elem) => acum + elem, 0);
+}
+
+function agregarEquipoRival(equipo){
+    equiposRivales.push(equipo);
 }
 
 function asignarPuntajeEquipoRival(idEquipo){
@@ -148,18 +192,16 @@ function acumularPuntosEquiposSecundarios(idEquipoLocal, idEquipoVisitante){
     }
 }}
 
-agregarEquipoRival({id: 1, nombre: "Equipo1", puntajeJugadoresFecha: 0, puntosAcumulados: 0});
-agregarEquipoRival({id: 2, nombre: "Equipo2", puntajeJugadoresFecha: 0, puntosAcumulados: 0});
-agregarEquipoRival({id: 3, nombre: "Equipo3", puntajeJugadoresFecha: 0, puntosAcumulados: 0});
 
-validarCompra({id: 1, nombre: "Mono Burgos", img: "../imagenes/mono-burgos.jpg", valor: 800, puntaje: 0});
-validarCompra({id: 2, nombre: "Pupi Zanetti", img: "../imagenes/pupi-zanetti.jpg", valor: 300, puntaje: 0});
-validarCompra({id: 3, nombre: "Lionel Messi", img: "../imagenes/messi.jpg", valor: 1000, puntaje: 0});
-validarCompra({id: 4, nombre: "Brujita Verón", img: "../imagenes/veron.jpg", valor: 1000, puntaje: 0});
-validarCompra({id: 5, nombre: "Hernán Crespo", img: "../imagenes/crespo.jpg", valor: 300, puntaje: 0});
+//validarCompra();
+//validarCompra();
+//validarCompra();
+//validarCompra();
+//validarCompra();
 //validarCompra({id: 6, nombre: "Gabriel Batistuta", valor: 400}); -----> Alerta por superar el límite de jugadores
 //venderJugador(1); -----> Elimina jugador elegido por id
 
+/*
 //FECHA 1: MI EQUIPO VS EQUIPO1 y EQUIPO2 VS EQUIPO3
 asignarPuntajeAJugador(1);
 asignarPuntajeAJugador(2);
@@ -180,7 +222,7 @@ console.log("EQUIPO1 puntos Acumulados: " + equiposRivales[0].puntosAcumulados);
 console.log("EQUIPO2 puntos Acumulados: " + equiposRivales[1].puntosAcumulados);
 console.log("EQUIPO3 puntos Acumulados: " + equiposRivales[2].puntosAcumulados);
 
-mostrarMisJugadores()
+mostrarJugadoresPlantel()
 //mostrarPuntajesJugadoresPlantel(1);
 
 //FECHA 2: MI EQUIPO VS EQUIPO2 y EQUIPO1 VS EQUIPO3
@@ -237,6 +279,7 @@ console.log("Puntaje Pupi Zanetti: " + jugadoresPlantel[1].puntaje);
 console.log("Puntaje Lionel Messi: " + jugadoresPlantel[2].puntaje);
 console.log("Puntaje Brujita Verón: " + jugadoresPlantel[3].puntaje);
 console.log("Puntaje Hernán Crespo: " + jugadoresPlantel[4].puntaje);
+*/
 
 /*FALTA VALIDAR:
 - Que no se puedan calcular los puntajes más de una vez por fecha.

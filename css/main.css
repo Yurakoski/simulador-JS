@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: 'Comfortaa', cursive;
     font-family: 'Jost', sans-serif; 
 }
@@ -51,13 +52,14 @@ p{
     align-items: center;
 }
 
-#mi-equipo{
+#cards-disponibles{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
 
-#mi-equipo li{
+#cards-disponibles li{
     display: flex;
     flex-direction: column;
     list-style: none;
@@ -68,7 +70,31 @@ p{
     border-radius: 0.5rem;
 }
 
-#mi-equipo img{
-    width: 120px;
-    height: 120px;
+#cards-disponibles img{
+    width: 100px;
+    height: 100px;
+}
+
+
+#cards-mis-jugadores{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#cards-mis-jugadores li{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+
+#cards-mis-jugadores img{
+    width: 100px;
+    height: 100px;
 }
