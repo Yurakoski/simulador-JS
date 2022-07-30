@@ -26,9 +26,15 @@ const equiposRivales = [
 let jugadoresPlantel = [];
 const cardsJugadoresDisponibles = document.querySelector("#cards-disponibles");
 const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
+const dineroDisponible = document.querySelector("#dinero-disponible")
 
 mostrarJugadoresDisponibles();
 mostrarJugadoresPlantel();
+mostrarDineroDisponible();
+
+function mostrarDineroDisponible(){
+    dineroDisponible.innerHTML = `<div>$${miPresupuesto}</div>`;
+}
 
 function mostrarJugadoresDisponibles(){ 
     cardsJugadoresDisponibles.innerHTML = "";  //LO LIMPIA ANTES DE CARGAR EL ARRAY ACTUALIZADO
@@ -48,9 +54,8 @@ function mostrarJugadoresPlantel(){
         const idBoton = `add-player${jugador.id}`;
         cardsMisJugadores.innerHTML += `<li><img src= "${jugador.img}"> 
                                         ${jugador.nombre}
-                                        <button id="${idBoton}">COMPRAR</button></li>`;
+                                        <button id="${idBoton}">VENDER</button></li>`;
     });
- 
 }
 
 function cargarEventListeners(){ 
@@ -74,6 +79,7 @@ function validarCompra(jugador){  //****BOTON COMPRAR**** va a llamar a esta fun
         if (tieneDineroSuficienteParaComprar(jugador)){
              eliminarJugadorDeDisponibles(jugador.id);
              completarCompra(jugador);
+             mostrarDineroDisponible();
             }else{alert("Su presupuesto es insuficiente. Contrate otro jugador más barato.");
         }
     }else{alert("Superó el límite de jugadores contratados");
