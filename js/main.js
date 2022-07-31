@@ -12,9 +12,9 @@ let jugadoresDisponibles = [
        {id: 1, nombre: "Mono Burgos", img: "../imagenes/mono-burgos.jpg", valor: 800, puntaje: 0},
        {id: 2, nombre: "Pupi Zanetti", img: "../imagenes/pupi-zanetti.jpg", valor: 300, puntaje: 0},
        {id: 3, nombre: "Lionel Messi", img: "../imagenes/messi.jpg", valor: 1000, puntaje: 0},
-       {id: 4, nombre: "Brujita Verón", img: "../imagenes/veron.jpg", valor: 1000, puntaje: 0},
+       {id: 4, nombre: "Brujita Verón", img: "./imagenes/veron.jpg", valor: 1000, puntaje: 0},
        {id: 5, nombre: "Hernán Crespo", img: "../imagenes/crespo.jpg", valor: 300, puntaje: 0},
-       {id: 6, nombre: "Gabriel Batistuta", img: "../imagenes/bati.jpg", valor: 2000, puntaje: 0}
+       {id: 6, nombre: "G. Batistuta", img: "../imagenes/bati.jpg", valor: 2000, puntaje: 0}
     ];
 
 const equiposRivales = [
@@ -26,21 +26,11 @@ const equiposRivales = [
 let jugadoresPlantel = [];
 const cardsJugadoresDisponibles = document.querySelector("#cards-disponibles");
 const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
-const dineroDisponible = document.querySelector("#dinero-disponible")
-
+const dineroDisponible = document.querySelector("#dinero-disponible");
 
 mostrarJugadoresDisponibles();
 mostrarJugadoresPlantel();
 mostrarDineroDisponible();
-
-function ordenarJugadoresDisponiblesPorId(){
-   jugadoresDisponibles.sort(function(a, b) {
-       return a.id-b.id});
-}
-
-function mostrarDineroDisponible(){
-    dineroDisponible.innerHTML = `<div>$${miPresupuesto}</div>`;
-}
 
 function mostrarJugadoresDisponibles(){ 
     cardsJugadoresDisponibles.innerHTML = "";  
@@ -70,7 +60,7 @@ function mostrarJugadoresPlantel(){//GENERA LAS CARDS EN EL HTML, Y A CADA BOTON
         });
     
     jugadoresPlantel.forEach( (jugador) => {//AGREGA LISTENERS A LOS BOTONES AL HACER CLICK
-            const idBoton = `remove-player${jugador.id}`
+            const idBoton = `remove-player${jugador.id}`;
             document.getElementById(idBoton).addEventListener("click", () => {
             venderJugador(jugador.id)});
             });
@@ -133,8 +123,14 @@ function completarCompra(jugador){
     mostrarJugadoresPlantel();
 }
 
+function mostrarDineroDisponible(){
+    dineroDisponible.innerHTML = `<div>$${miPresupuesto}</div>`;
+}
 
-
+function ordenarJugadoresDisponiblesPorId(){
+    jugadoresDisponibles.sort(function(a, b) {
+        return a.id-b.id});
+ }
 
 function obtenerPuntajeRandom(max) {
     return Math.floor(Math.random() * max);
