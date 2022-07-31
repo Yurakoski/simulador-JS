@@ -13,7 +13,7 @@ let jugadoresDisponibles = [
        {id: 2, nombre: "Pupi Zanetti", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/pupi-zanetti.jpg?raw=true", valor: 300, puntaje: 0},
        {id: 3, nombre: "Lionel Messi", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/messi.jpg?raw=true", valor: 1000, puntaje: 0},
        {id: 4, nombre: "Brujita Verón", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/veron.jpg?raw=true", valor: 1000, puntaje: 0},
-       {id: 5, nombre: "Hernán Crespo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/crespo.jpg?raw=true", valor: 300, puntaje: 0},
+       {id: 5, nombre: "H. Crespo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/crespo.jpg?raw=true", valor: 300, puntaje: 0},
        {id: 6, nombre: "G. Batistuta", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/bati.jpg?raw=true", valor: 2000, puntaje: 0}
     ];
 
