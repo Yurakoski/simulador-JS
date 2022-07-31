@@ -28,42 +28,70 @@ const cardsJugadoresDisponibles = document.querySelector("#cards-disponibles");
 const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
 const dineroDisponible = document.querySelector("#dinero-disponible")
 
+
 mostrarJugadoresDisponibles();
 mostrarJugadoresPlantel();
 mostrarDineroDisponible();
+
+function ordenarJugadoresDisponiblesPorId(){
+   jugadoresDisponibles.sort(function(a, b) {
+       return a.id-b.id});
+}
 
 function mostrarDineroDisponible(){
     dineroDisponible.innerHTML = `<div>$${miPresupuesto}</div>`;
 }
 
 function mostrarJugadoresDisponibles(){ 
-    cardsJugadoresDisponibles.innerHTML = "";  //LO LIMPIA ANTES DE CARGAR EL ARRAY ACTUALIZADO
-    jugadoresDisponibles.forEach((jugador)=>{
+    cardsJugadoresDisponibles.innerHTML = "";  
+    jugadoresDisponibles.forEach((jugador)=>{ //GENERA LAS CARDS EN EL HTML, Y A CADA BOTON LE ASIGNA UN ID NUMERICO
         const idBoton = `add-player${jugador.id}`
         cardsJugadoresDisponibles.innerHTML += `<li><img src= "${jugador.img}"> 
-                                                ${jugador.nombre}<br>
-                                                $${jugador.valor}
+                                                ${jugador.nombre}
+                                                <br>$${jugador.valor}
                                                 <button id="${idBoton}">COMPRAR</button></li>`;
-    });
-    cargarEventListeners();
-}
+        });
 
-function mostrarJugadoresPlantel(){
-    cardsMisJugadores.innerHTML ="";
-    jugadoresPlantel.forEach((jugador)=>{
-        const idBoton = `add-player${jugador.id}`;
-        cardsMisJugadores.innerHTML += `<li><img src= "${jugador.img}"> 
-                                        ${jugador.nombre}
-                                        <button id="${idBoton}">VENDER</button></li>`;
-    });
-}
-
-function cargarEventListeners(){ 
-    jugadoresDisponibles.forEach( (jugador) => {
+    jugadoresDisponibles.forEach( (jugador) => {  //AGREGA LISTENERS A LOS BOTONES AL HACER CLICK
         const idBoton = `add-player${jugador.id}`
         document.getElementById(idBoton).addEventListener("click", () => {
         validarCompra(jugador)});
         })
+}
+
+function mostrarJugadoresPlantel(){//GENERA LAS CARDS EN EL HTML, Y A CADA BOTON LE ASIGNA UN ID NUMERICO
+    cardsMisJugadores.innerHTML ="";
+    jugadoresPlantel.forEach((jugador)=>{
+        const idBoton = `remove-player${jugador.id}`;
+        cardsMisJugadores.innerHTML += `<li><img src= "${jugador.img}"> 
+                                        ${jugador.nombre}
+                                        <br>$${jugador.valor}
+                                        <button id="${idBoton}">VENDER</button></li>`;
+        });
+    
+    jugadoresPlantel.forEach( (jugador) => {//AGREGA LISTENERS A LOS BOTONES AL HACER CLICK
+            const idBoton = `remove-player${jugador.id}`
+            document.getElementById(idBoton).addEventListener("click", () => {
+            venderJugador(jugador.id)});
+            });
+}
+
+function venderJugador(idJugador){
+    const index = jugadoresPlantel.findIndex(jugador => jugador.id === idJugador);
+    if(index !== -1){
+        miPresupuesto += jugadoresPlantel[index].valor;
+        dineroGastado -=  jugadoresPlantel[index].valor;
+        mostrarDineroDisponible();
+        agregarJugadorADisponibles(jugadoresPlantel[index]);
+        jugadoresPlantel.splice(index, 1);
+        mostrarJugadoresPlantel();
+        mostrarJugadoresDisponibles();
+    }
+}
+
+function agregarJugadorADisponibles(jugador){
+    jugadoresDisponibles.push(jugador);
+    ordenarJugadoresDisponiblesPorId();
 }
 
 function eliminarJugadorDeDisponibles(idJugador){
@@ -80,7 +108,7 @@ function validarCompra(jugador){  //****BOTON COMPRAR**** va a llamar a esta fun
              eliminarJugadorDeDisponibles(jugador.id);
              completarCompra(jugador);
              mostrarDineroDisponible();
-            }else{alert("Su presupuesto es insuficiente. Contrate otro jugador más barato.");
+            }else{alert("Su presupuesto es insuficiente.");
         }
     }else{alert("Superó el límite de jugadores contratados");
     }
@@ -105,18 +133,8 @@ function completarCompra(jugador){
     mostrarJugadoresPlantel();
 }
 
-function agregarJugadorADisponibles(jugador){
-    jugadoresDisponibles.push(jugador);
-}
 
-function venderJugador(idJugador){
-    const index = jugadoresPlantel.findIndex(jugador => jugador.id === idJugador);
-    if(index !== -1){
-        miPresupuesto += jugadoresPlantel[index].valor;
-        dineroGastado -=  jugadoresPlantel[index].valor;
-        jugadoresPlantel.splice(index, 1);
-    }
-}
+
 
 function obtenerPuntajeRandom(max) {
     return Math.floor(Math.random() * max);

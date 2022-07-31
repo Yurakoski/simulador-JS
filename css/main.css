@@ -13,7 +13,9 @@
     background-attachment: fixed;
     background-size: cover;
 }
-
+h2{
+    color:white;
+}
 .navbar img{
     width: 60px;
     margin-left: 1rem;
