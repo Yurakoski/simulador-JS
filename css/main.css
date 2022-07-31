@@ -107,7 +107,10 @@ p{
 
 
 @media only screen and (max-width: 480px) {
-    .seccion-disponibles, .seccion-mis-jugadores{
+    .seccion-disponibles {
         min-height:450px ;
+    }
+    .seccion-mis-jugadores{
+        height: 750px;
     }
 }
