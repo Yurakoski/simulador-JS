@@ -104,6 +104,10 @@ p{
 #dinero-disponible{
     font-size: 1.5rem;
 }
+button{
+    background-color: rgb(133, 159, 253);
+    border-radius: 1rem;
+}
 
 
 @media only screen and (max-width: 480px) {

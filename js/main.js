@@ -25,12 +25,31 @@ const equiposRivales = [
     
 let jugadoresPlantel = [];
 const cardsJugadoresDisponibles = document.querySelector("#cards-disponibles");
+const subtituloJugadoresDisponibles = document.querySelector("#subtitulo-jugadores-disponibles");
 const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
 const dineroDisponible = document.querySelector("#dinero-disponible");
+const subtituloDineroDisponible = document.querySelector("#subtitulo-dinero-disponible");
+const botonIniciarCampeonato = document.querySelector("#boton-iniciar");
+const seccionDisponibles = document.querySelector("#seccion-disponibles");
+const seccionMisJugadores = document.querySelector("#seccion-mis-jugadores");
 
 mostrarJugadoresDisponibles();
 mostrarJugadoresPlantel();
 mostrarDineroDisponible();
+iniciar();
+
+function iniciar(){
+    document.getElementById(`boton-iniciar`).addEventListener("click", () => {
+        if(plantelCompleto()){             //***********************FALTA DESACTIVAR BOTON VENDER */
+            alert("TU EQUIPO VS EQUIPO2");//**********************ACA PONER IMAGEN DE VERSUS */
+            botonIniciarCampeonato.innerHTML= "";
+            subtituloJugadoresDisponibles.innerHTML= "";
+            cardsJugadoresDisponibles.innerHTML= "";
+            subtituloDineroDisponible.innerHTML= "";
+            dineroDisponible.innerHTML= ""; 
+            seccionDisponibles.innerHTML= "";
+        }})
+}
 
 function mostrarJugadoresDisponibles(){ 
     cardsJugadoresDisponibles.innerHTML = "";  
@@ -93,7 +112,7 @@ function eliminarJugadorDeDisponibles(idJugador){
 }
 
 function validarCompra(jugador){  //****BOTON COMPRAR**** va a llamar a esta función
-    if (contratoMenosDeCincoJugadores()){
+    if (plantelIncompleto()){
         if (tieneDineroSuficienteParaComprar(jugador)){
              eliminarJugadorDeDisponibles(jugador.id);
              completarCompra(jugador);
@@ -104,7 +123,11 @@ function validarCompra(jugador){  //****BOTON COMPRAR**** va a llamar a esta fun
     }
 }
 
-function contratoMenosDeCincoJugadores(){
+function plantelCompleto(){
+    return jugadoresPlantel.length === 5;
+}
+
+function plantelIncompleto(){
     return jugadoresPlantel.length < CANTIDAD_DE_JUGADORES_POR_EQUIPO;
 }
 
