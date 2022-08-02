@@ -24,6 +24,7 @@ const equiposRivales = [
     ];
     
 let jugadoresPlantel = [];
+const pantalla = document.querySelector("#pantalla")
 const cardsJugadoresDisponibles = document.querySelector("#cards-disponibles");
 const subtituloJugadoresDisponibles = document.querySelector("#subtitulo-jugadores-disponibles");
 const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
@@ -41,13 +42,9 @@ iniciar();
 function iniciar(){
     document.getElementById(`boton-iniciar`).addEventListener("click", () => {
         if(plantelCompleto()){             //***********************FALTA DESACTIVAR BOTON VENDER */
-            alert("TU EQUIPO VS EQUIPO2");//**********************ACA PONER IMAGEN DE VERSUS */
-            botonIniciarCampeonato.innerHTML= "";
-            subtituloJugadoresDisponibles.innerHTML= "";
-            cardsJugadoresDisponibles.innerHTML= "";
-            subtituloDineroDisponible.innerHTML= "";
-            dineroDisponible.innerHTML= ""; 
-            seccionDisponibles.innerHTML= "";
+            pantalla.innerHTML= "";
+            pantalla.innerHTML= `<img src="./imagenes/banner-vs.jpg">
+                                 <button>----COMENZAR---</button>`
         }})
 }
 
