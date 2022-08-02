@@ -43,7 +43,7 @@ function iniciar(){
     document.getElementById(`boton-iniciar`).addEventListener("click", () => {
         if(plantelCompleto()){             //***********************FALTA DESACTIVAR BOTON VENDER */
             pantalla.innerHTML= "";
-            pantalla.innerHTML= `<img src="./imagenes/banner-vs.jpg">
+            pantalla.innerHTML= `<img class="banner-vs" src="./imagenes/banner-vs.jpg">
                                  <button>----COMENZAR---</button>`
         }})
 }

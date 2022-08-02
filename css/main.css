@@ -13,6 +13,9 @@
     background-attachment: fixed;
     background-size: cover;
 }
+.banner-vs{
+    width: 100%;
+}
 
 h2{
     color:white;
