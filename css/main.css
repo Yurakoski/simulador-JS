@@ -14,7 +14,7 @@
     background-size: cover;
 }
 .banner-vs{
-    width: 100%;
+    width: 50%;
 }
 
 h2{
@@ -113,6 +113,19 @@ button{
     border-radius: 1rem;
 }
 
+#jugadores-locales, #jugadores-visitantes{
+    background-color: white;
+}
+
+.contenedor-partido{
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin-top: 1rem;
+}
+.contenedor-partido li{
+    padding: 1rem;
+}
 
 @media only screen and (max-width: 480px) {
     .seccion-disponibles {
@@ -121,4 +134,5 @@ button{
     .seccion-mis-jugadores{
         height: 750px;
     }
+
 }

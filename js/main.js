@@ -1,3 +1,18 @@
+const pantalla = document.querySelector("#pantalla")
+const cardsJugadoresDisponibles = document.querySelector("#cards-disponibles");
+const subtituloJugadoresDisponibles = document.querySelector("#subtitulo-jugadores-disponibles");
+const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
+const dineroDisponible = document.querySelector("#dinero-disponible");
+const subtituloDineroDisponible = document.querySelector("#subtitulo-dinero-disponible");
+const botonIniciarCampeonato = document.querySelector("#boton-iniciar");
+const seccionDisponibles = document.querySelector("#seccion-disponibles");
+const seccionMisJugadores = document.querySelector("#seccion-mis-jugadores");
+const pantalla2 = document.querySelector("#pantalla-2");
+const jugadoresLocales = document.querySelector("#jugadores-locales");
+const jugadoresVisitantes = document.querySelector("#jugadores-visitantes");
+const botonIniciarPartido = document.querySelector("#boton-iniciar-partido");
+const contenedorIniciarPartido = document.querySelector("#contenedor-iniciar-partido");
+
 let miPresupuesto = 4000;
 let dineroGastado = 0;
 let sumatoriaPuntajeFecha= 0;
@@ -7,6 +22,7 @@ const VALOR_JUGADOR_MEDIO = 500;
 const PUNTOS_PARTIDO_GANADO = 3;
 const PUNTOS_PARTIDO_EMPATADO = 1;
 const PUNTAJE_MINIMO_JUGADOR_PREMIUM = 7;
+
 
 let jugadoresDisponibles = [
        {id: 1, nombre: "Mono Burgos", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/mono-burgos.jpg?raw=true", valor: 800, puntaje: 0},
@@ -18,35 +34,62 @@ let jugadoresDisponibles = [
     ];
 
 const equiposRivales = [
-        {id: 1, nombre: "Equipo1", puntajeJugadoresFecha: 0, puntosAcumulados: 0},
-        {id: 2, nombre: "Equipo2", puntajeJugadoresFecha: 0, puntosAcumulados: 0},
-        {id: 3, nombre: "Equipo3", puntajeJugadoresFecha: 0, puntosAcumulados: 0}
+        {id: 1, nombre: "Brasil", puntajeJugadoresFecha: 0, puntosAcumulados: 0},
+        {id: 2, nombre: "Alemania", puntajeJugadoresFecha: 0, puntosAcumulados: 0},
+        {id: 3, nombre: "España", puntajeJugadoresFecha: 0, puntosAcumulados: 0}
     ];
-    
+
 let jugadoresPlantel = [];
-const pantalla = document.querySelector("#pantalla")
-const cardsJugadoresDisponibles = document.querySelector("#cards-disponibles");
-const subtituloJugadoresDisponibles = document.querySelector("#subtitulo-jugadores-disponibles");
-const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
-const dineroDisponible = document.querySelector("#dinero-disponible");
-const subtituloDineroDisponible = document.querySelector("#subtitulo-dinero-disponible");
-const botonIniciarCampeonato = document.querySelector("#boton-iniciar");
-const seccionDisponibles = document.querySelector("#seccion-disponibles");
-const seccionMisJugadores = document.querySelector("#seccion-mis-jugadores");
+let jugadoresBrasil = [{id: 1, nombre: "Dida"}, 
+                       {id: 2, nombre: "Kaka"},
+                       {id: 3, nombre: "Ronaldo"},
+                       {id: 4, nombre: "Rivaldo"},
+                       {id: 5, nombre: "Ronaldinho"}
+                    ];
+
 
 mostrarJugadoresDisponibles();
 mostrarJugadoresPlantel();
 mostrarDineroDisponible();
-iniciar();
+iniciarTorneo();
 
-function iniciar(){
+function iniciarTorneo(){
     document.getElementById(`boton-iniciar`).addEventListener("click", () => {
-        if(plantelCompleto()){             //***********************FALTA DESACTIVAR BOTON VENDER */
-            pantalla.innerHTML= "";
-            pantalla.innerHTML= `<img class="banner-vs" src="./imagenes/banner-vs.jpg">
-                                 <button>----COMENZAR---</button>`
-        }})
+        if(plantelCompleto()){      
+            limpiarPantalla();
+            pantalla2.innerHTML= `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 400px>`;
+            contenedorIniciarPartido.innerHTML = `<button id="comenzar">----COMENZAR---</button>`
+            iniciarPartido();
+            }})
+        }
+
+function iniciarPartido(){
+    document.getElementById(`comenzar`).addEventListener("click", () => {
+            contenedorIniciarPartido.innerHTML = "";
+            mostrarEquipos();
+            })
+   
 }
+
+function mostrarEquipos(){
+    jugadoresPlantel.forEach((jugador)=>{
+        jugadoresLocales.innerHTML += `<li>${jugador.nombre}</li>`;
+        });
+
+        jugadoresBrasil.forEach((jugador) => {
+            jugadoresVisitantes.innerHTML += `<li>${jugador.nombre}</li>`
+        })
+
+
+
+}
+
+
+
+function limpiarPantalla(){
+    pantalla.innerHTML= "";
+}
+
 
 function mostrarJugadoresDisponibles(){ 
     cardsJugadoresDisponibles.innerHTML = "";  
