@@ -132,8 +132,10 @@ button{
     height: 3.5rem;
     border-radius: 1.75rem;
 }
-#puntos{
+#puntos-locales li{
     background-color: white;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 @media only screen and (max-width: 480px) {

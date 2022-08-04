@@ -12,7 +12,7 @@ const jugadoresLocales = document.querySelector("#jugadores-locales");
 const jugadoresVisitantes = document.querySelector("#jugadores-visitantes");
 const botonIniciarPartido = document.querySelector("#boton-iniciar-partido");
 const contenedorIniciarPartido = document.querySelector("#contenedor-iniciar-partido");
-const puntos = document.querySelector("#puntos");
+const puntosLocales = document.querySelector("#puntos-locales");
 
 let miPresupuesto = 4000;
 let dineroGastado = 0;
@@ -81,7 +81,7 @@ function asignarPuntajeAJugadores(){
             }else{
                 jugadoresPlantel[i].puntaje= obtenerPuntajeRandom(11);
             }
-            puntos.innerHTML += `<li>${jugadoresPlantel[i].puntaje}</li>`
+            puntosLocales.innerHTML += `<li>${jugadoresPlantel[i].puntaje}</li>`
             console.log(`${jugadoresPlantel[i].puntaje}`)
         }
 }
