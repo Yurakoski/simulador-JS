@@ -124,7 +124,7 @@ button{
     margin-top: 1rem;
 }
 .contenedor-partido li{
-    padding: 1rem;
+    padding: 0.5rem;
 }
 
 #jugadores-locales img, #jugadores-visitantes img{
@@ -134,8 +134,8 @@ button{
 }
 #puntos-locales li, #puntos-visitantes li{
     background-color: white;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
 @media only screen and (max-width: 480px) {
