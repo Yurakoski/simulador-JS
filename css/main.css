@@ -68,19 +68,14 @@ p{
 #cards-disponibles li{
     display: flex;
     flex-direction: column;
+    font-size: 1rem;
     list-style: none;
-    padding: 1rem;
+    padding: 0.5rem;
     margin-bottom: 1rem;
     background-color: white;
     border: 1px solid black;
     border-radius: 0.5rem;
 }
-
-#cards-disponibles img{
-    width: 100px;
-    height: 100px;
-}
-
 
 #cards-mis-jugadores{
     display: flex;
@@ -93,21 +88,26 @@ p{
     display: flex;
     flex-direction: column;
     list-style: none;
-    padding: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
     margin-bottom: 1rem;
     background-color: white;
     border: 1px solid black;
     border-radius: 0.5rem;
 }
 
-#cards-mis-jugadores img{
-    width: 100px;
-    height: 100px;
+#cards-mis-jugadores img, #cards-disponibles img{
+    width: 90px;
+    height: 90px;
+}
+.contenedor-dinero{
+    border-radius: 1rem;
 }
 
 #dinero-disponible{
     font-size: 1.5rem;
 }
+
 button{
     background-color: rgb(133, 159, 253);
     border-radius: 1rem;
@@ -125,6 +125,15 @@ button{
 }
 .contenedor-partido li{
     padding: 1rem;
+}
+
+#jugadores-locales img, #jugadores-visitantes img{
+    justify-content: flex-end;
+    height: 3.5rem;
+    border-radius: 1.75rem;
+}
+#puntos{
+    background-color: white;
 }
 
 @media only screen and (max-width: 480px) {

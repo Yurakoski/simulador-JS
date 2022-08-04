@@ -11,27 +11,6 @@
 </head>
 <body>
     
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">
-            <img src="./imagenes/pelota-favicon.jpg" class="logoNavbar"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">INICIO</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">MI EQUIPO</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">EQUIPOS RIVALES</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
     <main>
     <section class="fondoInicio">
         <section>
@@ -40,25 +19,29 @@
                     <div id="subtitulo-jugadores-disponibles"><h2><b>Jugadores Disponibles</b></h2></div>
                     <div id="cards-disponibles"></div>
                  </div>
-            <div class="bg-warning text-center">
-                <div id="subtitulo-dinero-disponible"><h3><b>Dinero Disponible</b></h3></div>
-                <div id="dinero-disponible"></div>
+            
+            <div class="contenedor d-flex">
+                <div class="contenedor-dinero bg-warning text-center">
+                    <div id="subtitulo-dinero-disponible"><h3><b>Dinero Disponible</b></h3></div>
+                    <div id="dinero-disponible"></div>
+                </div>
+                <button id="boton-iniciar">--INICIAR CAMPEONATO--</button>
             </div>
             <div class="seccion-mis-jugadores mt-2 mb-2 p-2 text-center">
                 <h2><b>Mis Jugadores</b></h2>
                 <div id="cards-mis-jugadores"></div>
             </div>
-                <button id="boton-iniciar">--INICIAR CAMPEONATO--</button>
             </div>
         </section>
         
         <section>
             <div id="pantalla-2" class="contenido"></div>
-            <div id="contenedor-iniciar-partido"></div>
             <div class="contenedor-partido">
                 <div id="jugadores-locales"></div>
                 <div id="jugadores-visitantes"></div>
             </div>
+            <div id="contenedor-iniciar-partido" class="text-center"></div>
+            <div id="puntos"></div>
         </section>
             
     </section>

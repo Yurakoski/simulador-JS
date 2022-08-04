@@ -12,12 +12,13 @@ const jugadoresLocales = document.querySelector("#jugadores-locales");
 const jugadoresVisitantes = document.querySelector("#jugadores-visitantes");
 const botonIniciarPartido = document.querySelector("#boton-iniciar-partido");
 const contenedorIniciarPartido = document.querySelector("#contenedor-iniciar-partido");
+const puntos = document.querySelector("#puntos");
 
 let miPresupuesto = 4000;
 let dineroGastado = 0;
 let sumatoriaPuntajeFecha= 0;
 let misPuntosAcumulados = 0;
-const CANTIDAD_DE_JUGADORES_POR_EQUIPO = 5;
+const CANTIDAD_DE_JUGADORES_POR_EQUIPO = 4;
 const VALOR_JUGADOR_MEDIO = 500;
 const PUNTOS_PARTIDO_GANADO = 3;
 const PUNTOS_PARTIDO_EMPATADO = 1;
@@ -40,14 +41,13 @@ const equiposRivales = [
     ];
 
 let jugadoresPlantel = [];
-let jugadoresBrasil = [{id: 1, nombre: "Dida"}, 
-                       {id: 2, nombre: "Kaka"},
-                       {id: 3, nombre: "Ronaldo"},
-                       {id: 4, nombre: "Rivaldo"},
-                       {id: 5, nombre: "Ronaldinho"}
+let jugadoresBrasil = [{id: 1, nombre: "Dida", img: "../imagenes/dida.jpg"}, 
+                       {id: 2, nombre: "Kaka", img: "../imagenes/kaka.jpg"},
+                       {id: 3, nombre: "Ronaldo", img: "../imagenes/ronaldo.jpg"},
+                       {id: 4, nombre: "Ronaldinho", img: "../imagenes/ronaldinho.jpg"}
                     ];
 
-
+                    
 mostrarJugadoresDisponibles();
 mostrarJugadoresPlantel();
 mostrarDineroDisponible();
@@ -58,33 +58,44 @@ function iniciarTorneo(){
         if(plantelCompleto()){      
             limpiarPantalla();
             pantalla2.innerHTML= `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 400px>`;
-            contenedorIniciarPartido.innerHTML = `<button id="comenzar">----COMENZAR---</button>`
             iniciarPartido();
             }})
         }
 
 function iniciarPartido(){
-    document.getElementById(`comenzar`).addEventListener("click", () => {
             contenedorIniciarPartido.innerHTML = "";
+            contenedorIniciarPartido.innerHTML = `<button id="resultados">----VER RESULTADOS---</button>`;
             mostrarEquipos();
+            document.getElementById(`resultados`).addEventListener("click", ()=>{
+                resultados.innerHTML = "";
+                asignarPuntajeAJugadores();
             })
-   
 }
+
+//El jugador premium (los más caros), obtienen puntajes mayores a 7
+function asignarPuntajeAJugadores(){
+
+    for(let i=0 ; i<=4; i++){
+          if(jugadoresPlantel[i].valor > VALOR_JUGADOR_MEDIO){
+            jugadoresPlantel[i].puntaje= obtenerPuntajeRandomPremium(4);
+            }else{
+                jugadoresPlantel[i].puntaje= obtenerPuntajeRandom(11);
+            }
+            puntos.innerHTML += `<li>${jugadoresPlantel[i].puntaje}</li>`
+            console.log(`${jugadoresPlantel[i].puntaje}`)
+        }
+}
+
 
 function mostrarEquipos(){
     jugadoresPlantel.forEach((jugador)=>{
-        jugadoresLocales.innerHTML += `<li>${jugador.nombre}</li>`;
+        jugadoresLocales.innerHTML += `<li>${jugador.nombre} <img src="${jugador.img}"></li>`;
         });
 
         jugadoresBrasil.forEach((jugador) => {
-            jugadoresVisitantes.innerHTML += `<li>${jugador.nombre}</li>`
+            jugadoresVisitantes.innerHTML += ` <li><img src="${jugador.img}"> ${jugador.nombre}</li>`
         })
-
-
-
 }
-
-
 
 function limpiarPantalla(){
     pantalla.innerHTML= "";
@@ -164,7 +175,7 @@ function validarCompra(jugador){  //****BOTON COMPRAR**** va a llamar a esta fun
 }
 
 function plantelCompleto(){
-    return jugadoresPlantel.length === 5;
+    return jugadoresPlantel.length === CANTIDAD_DE_JUGADORES_POR_EQUIPO;
 }
 
 function plantelIncompleto(){
@@ -203,17 +214,7 @@ function obtenerPuntajeRandomPremium(max) {
     return Math.floor(Math.random() * max + PUNTAJE_MINIMO_JUGADOR_PREMIUM);
 }
 
-//El jugador premium (los más caros), obtienen puntajes mayores a 7
-function asignarPuntajeAJugador(idJugador){
-    const index = jugadoresPlantel.findIndex(jugador => jugador.id === idJugador);
-    if(index !== -1){
-        if(jugadoresPlantel[index].valor > VALOR_JUGADOR_MEDIO){
-            jugadoresPlantel[index].puntaje= obtenerPuntajeRandomPremium(4);
-        }else{
-            jugadoresPlantel[index].puntaje= obtenerPuntajeRandom(11);
-        }
-    }
-}
+
 
 //MAPEO Y SUMATORIA DE PUNTAJES
 function sumarPuntajeJugadores(){
