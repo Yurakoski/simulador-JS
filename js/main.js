@@ -13,6 +13,7 @@ const jugadoresVisitantes = document.querySelector("#jugadores-visitantes");
 const botonIniciarPartido = document.querySelector("#boton-iniciar-partido");
 const contenedorIniciarPartido = document.querySelector("#contenedor-iniciar-partido");
 const puntosLocales = document.querySelector("#puntos-locales");
+const puntosVisitantes = document.querySelector("#puntos-visitantes");
 
 let miPresupuesto = 4000;
 let dineroGastado = 0;
@@ -41,10 +42,10 @@ const equiposRivales = [
     ];
 
 let jugadoresPlantel = [];
-let jugadoresBrasil = [{id: 1, nombre: "Dida", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/dida.jpg?raw=true"}, 
-                       {id: 2, nombre: "Kaka", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/kaka.jpg?raw=true"},
-                       {id: 3, nombre: "Ronaldo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldo.jpg?raw=true"},
-                       {id: 4, nombre: "Ronaldinho", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldinho.jpg?raw=true"}
+let jugadoresBrasil = [{id: 1, nombre: "Dida", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/dida.jpg?raw=true", puntaje: 0}, 
+                       {id: 2, nombre: "Kaka", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/kaka.jpg?raw=true", puntaje: 0},
+                       {id: 3, nombre: "Ronaldo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldo.jpg?raw=true", puntaje: 0},
+                       {id: 4, nombre: "Ronaldinho", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldinho.jpg?raw=true", puntaje: 0}
                     ];
 
                     
@@ -76,6 +77,9 @@ function iniciarPartido(){
 function asignarPuntajeAJugadores(){
 
     for(let i=0 ; i<=4; i++){
+        jugadoresBrasil[i].puntaje= obtenerPuntajeRandomPremium(4);
+        puntosVisitantes.innerHTML += `<li>${jugadoresBrasil[i].puntaje}</li>`
+
           if(jugadoresPlantel[i].valor > VALOR_JUGADOR_MEDIO){
             jugadoresPlantel[i].puntaje= obtenerPuntajeRandomPremium(4);
             }else{
@@ -84,7 +88,18 @@ function asignarPuntajeAJugadores(){
             puntosLocales.innerHTML += `<li>${jugadoresPlantel[i].puntaje}</li>`
             console.log(`${jugadoresPlantel[i].puntaje}`)
         }
+        alert("sdkasklfdjklasjdlkasjkldjaskldjlas")
+       
 }
+
+function asignarPuntajeAJugadoresRivales(jugadoresBrasil){
+
+    //alert(`${jugadoresBrasil[i].puntaje}`)
+    for(let i=0 ; i<=4; i++){
+            
+             }
+}
+
 
 
 function mostrarEquipos(){

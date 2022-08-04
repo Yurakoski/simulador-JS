@@ -132,7 +132,7 @@ button{
     height: 3.5rem;
     border-radius: 1.75rem;
 }
-#puntos-locales li{
+#puntos-locales li, #puntos-visitantes li{
     background-color: white;
     padding-top: 2rem;
     padding-bottom: 2rem;
