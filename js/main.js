@@ -41,10 +41,10 @@ const equiposRivales = [
     ];
 
 let jugadoresPlantel = [];
-let jugadoresBrasil = [{id: 1, nombre: "Dida", img: "../imagenes/dida.jpg"}, 
-                       {id: 2, nombre: "Kaka", img: "../imagenes/kaka.jpg"},
-                       {id: 3, nombre: "Ronaldo", img: "../imagenes/ronaldo.jpg"},
-                       {id: 4, nombre: "Ronaldinho", img: "../imagenes/ronaldinho.jpg"}
+let jugadoresBrasil = [{id: 1, nombre: "Dida", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/dida.jpg?raw=true"}, 
+                       {id: 2, nombre: "Kaka", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/kaka.jpg?raw=true"},
+                       {id: 3, nombre: "Ronaldo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldo.jpg?raw=true"},
+                       {id: 4, nombre: "Ronaldinho", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldinho.jpg?raw=true"}
                     ];
 
                     
