@@ -58,7 +58,7 @@ function iniciarTorneo(){
     document.getElementById(`boton-iniciar`).addEventListener("click", () => {
         if(plantelCompleto()){      
             limpiarPantalla();
-            pantalla2.innerHTML= `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 400px>`;
+            pantalla2.innerHTML= `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px>`;
             iniciarPartido();
             }})
         }
@@ -104,11 +104,11 @@ function asignarPuntajeAJugadoresRivales(jugadoresBrasil){
 
 function mostrarEquipos(){
     jugadoresPlantel.forEach((jugador)=>{
-        jugadoresLocales.innerHTML += `<li>${jugador.nombre} <img src="${jugador.img}"></li>`;
+        jugadoresLocales.innerHTML += `<li><img src="${jugador.img}"></li>`;
         });
 
         jugadoresBrasil.forEach((jugador) => {
-            jugadoresVisitantes.innerHTML += ` <li><img src="${jugador.img}"> ${jugador.nombre}</li>`
+            jugadoresVisitantes.innerHTML += ` <li><img src="${jugador.img}"></li>`
         })
 }
 

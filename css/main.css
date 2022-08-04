@@ -129,13 +129,15 @@ button{
 
 #jugadores-locales img, #jugadores-visitantes img{
     justify-content: flex-end;
-    height: 3.5rem;
-    border-radius: 1.75rem;
+    height: 4rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    border-radius: 2rem;
 }
 #puntos-locales li, #puntos-visitantes li{
     background-color: white;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 1.7rem;
+    padding-bottom: 1.8rem;
 }
 
 @media only screen and (max-width: 480px) {
