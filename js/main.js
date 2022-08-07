@@ -18,14 +18,6 @@ const puntosFechaLocales = document.querySelector("#puntos-fecha-locales");
 const puntosFechaVisitantes = document.querySelector("#puntos-fecha-visitantes");
 const aceptar = document.querySelector("#aceptar");
 
-/*DUDAS:
-- pantallas nuevas en otro html??
-- error en consola al querer acceder al puntaje de los jugadores
-- no se me ejecuta la funcion sumar despues del for
-- no se borra el boton calcular puntajes (aparece en miniatura, pero 
-        si cliqueo hace el calculo y lo imprime de nuevo)
-*/
-
 let miPresupuesto = 4000;
 let dineroGastado = 0;
 let sumatoriaPuntajeFecha= 0;
@@ -58,6 +50,10 @@ let jugadoresBrasil = [{id: 1, nombre: "Dida", img: "https://github.com/Yurakosk
                        {id: 4, nombre: "Ronaldinho", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldinho.jpg?raw=true", puntaje: 0}
                     ];
 
+alert("Adquiera 4 jugadores para poder comenzar");
+getJugadoresDisponiblesLocalStorage();
+getEquipoLocalStorage();
+getDineroDisponibleLocalStorage();
 mostrarJugadoresDisponibles();
 mostrarJugadoresPlantel();
 mostrarDineroDisponible();
@@ -65,13 +61,46 @@ iniciarTorneo();
 
 function iniciarTorneo(){
     document.getElementById(`boton-iniciar`).addEventListener("click", () => {
-        if(plantelCompleto()){      
+        if(plantelCompleto()){    
+            guardarEquipoLocalStorage();
+            guardarJugadoresDisponiblesLocalStorage(); 
+            guardarDineroDisponibleLocalStorage(); 
             limpiarPantalla();
             pantalla2.innerHTML= `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px>`;
             iniciarPartido();
             }else{
                 alert("Debe adquirir 4 jugadores");
             }})
+}
+
+function guardarJugadoresDisponiblesLocalStorage(){
+    localStorage.setItem("disponibles", JSON.stringify((jugadoresDisponibles)))
+}
+
+function guardarEquipoLocalStorage(){
+    localStorage.setItem("equipo", JSON.stringify((jugadoresPlantel)));
+}
+
+function guardarDineroDisponibleLocalStorage() {
+    localStorage.setItem("miPresupuesto", JSON.stringify(miPresupuesto));
+}
+
+function getEquipoLocalStorage(){
+    if(localStorage.getItem("equipo")){
+    jugadoresPlantel = JSON.parse(localStorage.getItem("equipo"));
+    }
+}
+
+function getJugadoresDisponiblesLocalStorage(){
+    if(localStorage.getItem("disponibles")){
+        jugadoresDisponibles = JSON.parse(localStorage.getItem("disponibles"));
+        }
+}
+
+function getDineroDisponibleLocalStorage(){
+    if(localStorage.getItem("miPresupuesto")){
+        miPresupuesto = JSON.parse(localStorage.getItem("miPresupuesto"));
+        }
 }
 
 function iniciarPartido(){
@@ -98,6 +127,7 @@ function asignarPuntajeAJugadores(){
             }
             puntosLocales.innerHTML += `<li>${jugadoresPlantel[i].puntaje}</li>`
         }
+        sumarPuntajeJugadores();
 }
 
 function sumarPuntajeJugadores(){
@@ -112,7 +142,7 @@ function mostrarEquipos(){
         jugadoresLocales.innerHTML += `<li><img src="${jugador.img}"></li>`;
         });
 
-        jugadoresBrasil.forEach((jugador) => {
+    jugadoresBrasil.forEach((jugador) => {
             jugadoresVisitantes.innerHTML += ` <li><img src="${jugador.img}"></li>`
         })
 }
@@ -181,7 +211,7 @@ function eliminarJugadorDeDisponibles(idJugador){
         }else{alert("No se encontró al jugador seleccionado")}
 }
 
-function validarCompra(jugador){  //****BOTON COMPRAR**** va a llamar a esta función
+function validarCompra(jugador){
     if (plantelIncompleto()){
         if (tieneDineroSuficienteParaComprar(jugador)){
              eliminarJugadorDeDisponibles(jugador.id);
