@@ -14,6 +14,17 @@ const botonIniciarPartido = document.querySelector("#boton-iniciar-partido");
 const contenedorIniciarPartido = document.querySelector("#contenedor-iniciar-partido");
 const puntosLocales = document.querySelector("#puntos-locales");
 const puntosVisitantes = document.querySelector("#puntos-visitantes");
+const puntosFechaLocales = document.querySelector("#puntos-fecha-locales");
+const puntosFechaVisitantes = document.querySelector("#puntos-fecha-visitantes");
+const aceptar = document.querySelector("#aceptar");
+
+/*DUDAS:
+- pantallas nuevas en otro html??
+- error en consola al querer acceder al puntaje de los jugadores
+- no se me ejecuta la funcion sumar despues del for
+- no se borra el boton calcular puntajes (aparece en miniatura, pero 
+        si cliqueo hace el calculo y lo imprime de nuevo)
+*/
 
 let miPresupuesto = 4000;
 let dineroGastado = 0;
@@ -24,7 +35,6 @@ const VALOR_JUGADOR_MEDIO = 500;
 const PUNTOS_PARTIDO_GANADO = 3;
 const PUNTOS_PARTIDO_EMPATADO = 1;
 const PUNTAJE_MINIMO_JUGADOR_PREMIUM = 7;
-
 
 let jugadoresDisponibles = [
        {id: 1, nombre: "Mono Burgos", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/mono-burgos.jpg?raw=true", valor: 800, puntaje: 0},
@@ -48,7 +58,6 @@ let jugadoresBrasil = [{id: 1, nombre: "Dida", img: "https://github.com/Yurakosk
                        {id: 4, nombre: "Ronaldinho", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldinho.jpg?raw=true", puntaje: 0}
                     ];
 
-                    
 mostrarJugadoresDisponibles();
 mostrarJugadoresPlantel();
 mostrarDineroDisponible();
@@ -60,6 +69,8 @@ function iniciarTorneo(){
             limpiarPantalla();
             pantalla2.innerHTML= `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px>`;
             iniciarPartido();
+            }else{
+                alert("Debe adquirir 5 jugadores");
             }})
         }
 
@@ -70,37 +81,31 @@ function iniciarPartido(){
             document.getElementById(`resultados`).addEventListener("click", ()=>{
                 resultados.innerHTML = "";
                 asignarPuntajeAJugadores();
+                sumarPuntajeJugadores();
             })
 }
 
 //El jugador premium (los más caros), obtienen puntajes mayores a 7
 function asignarPuntajeAJugadores(){
-
     for(let i=0 ; i<=4; i++){
         jugadoresBrasil[i].puntaje= obtenerPuntajeRandomPremium(4);
         puntosVisitantes.innerHTML += `<li>${jugadoresBrasil[i].puntaje}</li>`
 
-          if(jugadoresPlantel[i].valor > VALOR_JUGADOR_MEDIO){
+        if(jugadoresPlantel[i].valor > VALOR_JUGADOR_MEDIO){
             jugadoresPlantel[i].puntaje= obtenerPuntajeRandomPremium(4);
             }else{
                 jugadoresPlantel[i].puntaje= obtenerPuntajeRandom(11);
             }
             puntosLocales.innerHTML += `<li>${jugadoresPlantel[i].puntaje}</li>`
-            console.log(`${jugadoresPlantel[i].puntaje}`)
         }
-        alert("sdkasklfdjklasjdlkasjkldjaskldjlas")
-       
 }
 
-function asignarPuntajeAJugadoresRivales(jugadoresBrasil){
-
-    //alert(`${jugadoresBrasil[i].puntaje}`)
-    for(let i=0 ; i<=4; i++){
-            
-             }
+function sumarPuntajeJugadores(){
+    puntajeLocalesFecha = jugadoresPlantel.map((jugador) => jugador.puntaje).reduce((acum, elem) => acum + elem, 0);
+    puntajeVisitantesFecha = jugadoresBrasil.map((jugador) => jugador.puntaje).reduce((acum, elem) => acum + elem, 0);
+    puntosFechaLocales.innerHTML= puntajeLocalesFecha;
+    puntosFechaVisitantes.innerHTML= puntajeVisitantesFecha;
 }
-
-
 
 function mostrarEquipos(){
     jugadoresPlantel.forEach((jugador)=>{
@@ -115,7 +120,6 @@ function mostrarEquipos(){
 function limpiarPantalla(){
     pantalla.innerHTML= "";
 }
-
 
 function mostrarJugadoresDisponibles(){ 
     cardsJugadoresDisponibles.innerHTML = "";  
@@ -227,13 +231,6 @@ function obtenerPuntajeRandom(max) {
 
 function obtenerPuntajeRandomPremium(max) {
     return Math.floor(Math.random() * max + PUNTAJE_MINIMO_JUGADOR_PREMIUM);
-}
-
-
-
-//MAPEO Y SUMATORIA DE PUNTAJES
-function sumarPuntajeJugadores(){
-    sumatoriaPuntajeFecha = jugadoresPlantel.map(jugador => jugador.puntaje).reduce((acum, elem) => acum + elem, 0);
 }
 
 function agregarEquipoRival(equipo){

@@ -141,6 +141,10 @@ button{
     background: rgba(0, 0, 0, 0.823);
 }
 
+#puntos-fecha-locales, #puntos-fecha-visitantes{
+    background-color: red;
+}
+
 @media only screen and (max-width: 480px) {
     .seccion-disponibles {
         min-height:450px ;
