@@ -70,9 +70,9 @@ function iniciarTorneo(){
             pantalla2.innerHTML= `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px>`;
             iniciarPartido();
             }else{
-                alert("Debe adquirir 5 jugadores");
+                alert("Debe adquirir 4 jugadores");
             }})
-        }
+}
 
 function iniciarPartido(){
             contenedorIniciarPartido.innerHTML = "";
