@@ -35,8 +35,8 @@ let jugadoresDisponibles = [
        {id: 4, nombre: "Brujita Verón", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/veron.jpg?raw=true", valor: 1000, puntaje: 0},
        {id: 5, nombre: "H. Crespo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/crespo.jpg?raw=true", valor: 300, puntaje: 0},
        {id: 6, nombre: "G. Batistuta", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/bati.jpg?raw=true", valor: 2000, puntaje: 0},
-       {id: 7, nombre: "Di María", img: "../imagenes/di-maria.jpg", valor: 900, puntaje: 0},
-       {id: 8, nombre: "M. Palermo", img: "../imagenes/palermo.jpg", valor: 700, puntaje: 0}
+       {id: 7, nombre: "Di María", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/di-maria.jpg?raw=true", valor: 900, puntaje: 0},
+       {id: 8, nombre: "M. Palermo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/palermo.jpg?raw=true", valor: 700, puntaje: 0}
     ];
 
 const equiposRivales = [
