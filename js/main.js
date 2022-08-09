@@ -34,7 +34,9 @@ let jugadoresDisponibles = [
        {id: 3, nombre: "Lionel Messi", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/messi.jpg?raw=true", valor: 1000, puntaje: 0},
        {id: 4, nombre: "Brujita Verón", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/veron.jpg?raw=true", valor: 1000, puntaje: 0},
        {id: 5, nombre: "H. Crespo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/crespo.jpg?raw=true", valor: 300, puntaje: 0},
-       {id: 6, nombre: "G. Batistuta", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/bati.jpg?raw=true", valor: 2000, puntaje: 0}
+       {id: 6, nombre: "G. Batistuta", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/bati.jpg?raw=true", valor: 2000, puntaje: 0},
+       {id: 7, nombre: "Di María", img: "../imagenes/di-maria.jpg", valor: 900, puntaje: 0},
+       {id: 8, nombre: "M. Palermo", img: "../imagenes/palermo.jpg", valor: 700, puntaje: 0}
     ];
 
 const equiposRivales = [
@@ -108,7 +110,7 @@ function iniciarPartido(){
             contenedorIniciarPartido.innerHTML = `<button id="resultados">----VER RESULTADOS---</button>`;
             mostrarEquipos();
             document.getElementById(`resultados`).addEventListener("click", ()=>{
-                resultados.innerHTML = "";
+                contenedorIniciarPartido.innerHTML = "";
                 asignarPuntajeAJugadores();
                 sumarPuntajeJugadores();
             })
@@ -127,7 +129,6 @@ function asignarPuntajeAJugadores(){
             }
             puntosLocales.innerHTML += `<li>${jugadoresPlantel[i].puntaje}</li>`
         }
-        sumarPuntajeJugadores();
 }
 
 function sumarPuntajeJugadores(){

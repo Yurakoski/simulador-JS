@@ -8,7 +8,7 @@
 
 .fondoInicio{
     background-image: url(../imagenes/fondo-cancha.jpg);
-    min-height: 100vh;
+    height: 100vh;
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
@@ -20,30 +20,11 @@
 h2, h3{
     color:white;
 }
-.navbar img{
-    width: 60px;
-    margin-left: 1rem;
-}
 
-.navbar{
-    background-color: rgb(72, 0, 188);
-}
-
-.nav-link{
-    font-size: 1.2rem;
-    color: white;
-}
-
-.nav-item{
-    padding-left: 2rem;
-}
-
-.navbar-nav .nav-link.active, .navbar-nav .show>.nav-link{
-    color: white;
-}
-
-.collapse, .navbar-collapse{
-    margin-left: 25rem;
+#boton-iniciar{
+    height: 50%;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
 }
 
 p{
@@ -70,7 +51,7 @@ p{
     flex-direction: column;
     font-size: 1rem;
     list-style: none;
-    padding: 0.5rem;
+    padding: 0.3rem;
     margin-bottom: 1rem;
     background-color: white;
     border: 1px solid black;
@@ -88,7 +69,7 @@ p{
     display: flex;
     flex-direction: column;
     list-style: none;
-    padding: 0.5rem;
+    padding: 0.3rem;
     font-size: 1rem;
     margin-bottom: 1rem;
     background-color: white;
@@ -147,10 +128,16 @@ button{
 
 @media only screen and (max-width: 480px) {
     .seccion-disponibles {
-        min-height:450px ;
+        min-height: 360px ;
     }
-    .seccion-mis-jugadores{
-        height: 750px;
+    
+    #cards-mis-jugadores img, #cards-disponibles img{
+        width: 70px;
+        height: 70px;
+    }
+
+    #cards-disponibles li, #cards-mis-jugadores li{
+        font-size: 0.8rem;
     }
 
 }
