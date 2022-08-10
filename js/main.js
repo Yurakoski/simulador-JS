@@ -36,7 +36,10 @@ const jugador= {
 }
 
 const {nombreJugador, nombreEquipo} = jugador;
-Swal.fire(`Bienvenido ${nombre}, tu equipo es ${nombreEquipo}`);
+
+Swal.fire({
+            text: `Bienvenido ${nombreJugador}, tu equipo es ${nombreEquipo}`
+        });
 
 let jugadoresDisponibles = [
         {id: 1, nombre: "Burgos", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/mono-burgos.jpg?raw=true", valor: 800, puntaje: 0},
