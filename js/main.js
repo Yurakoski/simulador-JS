@@ -31,14 +31,14 @@ const PUNTAJE_MINIMO_JUGADOR_PREMIUM = 7;
 
 //DESESTRUCTURACION
 const jugador= {
-    nombreJugador: prompt("Ingrese su nombre"),
-    nombreEquipo: "Argentina"
+    nombre: prompt("Ingrese su nombre"),
+    equipo: "Argentina"
 }
 
-const {nombreJugador, nombreEquipo} = jugador;
+const {nombre, equipo} = jugador;
 
 Swal.fire({
-            text: `Bienvenido ${nombreJugador}, tu equipo es ${nombreEquipo}`
+            text: `Bienvenido ${nombre}, tu equipo es ${equipo}`
         });
 
 let jugadoresDisponibles = [
