@@ -21,10 +21,14 @@ h2, h3{
     color:white;
 }
 
+#subtitulo-dinero-disponible h4{
+    padding: 0.5rem;
+}
+
 #boton-iniciar{
     height: 50%;
+    padding: 0.8rem;
     font-size: 0.8rem;
-    margin-top: 0.5rem;
 }
 
 p{
@@ -52,10 +56,14 @@ p{
     font-size: 1rem;
     list-style: none;
     padding: 0.3rem;
-    margin-bottom: 1rem;
     background-color: rgba(255, 255, 255, 0.652);
     border: 2px solid black;
     border-radius: 0.5rem;
+}
+
+.contenedor{
+    display: flex;
+    align-items: center;
 }
 
 #cards-mis-jugadores{
@@ -129,7 +137,7 @@ button{
 
 @media only screen and (max-width: 480px) {
     .seccion-disponibles {
-        min-height: 360px ;
+        min-height: 320px ;
     }
     
     #cards-mis-jugadores img, #cards-disponibles img{
@@ -138,6 +146,10 @@ button{
     }
 
     #cards-disponibles li, #cards-mis-jugadores li{
+        font-size: 0.8rem;
+    }
+
+    #boton-iniciar h5{
         font-size: 0.8rem;
     }
 

@@ -164,7 +164,7 @@ function mostrarJugadoresDisponibles(){
         const idBoton = `add-player${jugador.id}`
         cardsJugadoresDisponibles.innerHTML += `<li><img src= "${jugador.img}"> 
                                                 ${jugador.nombre}
-                                                <br>$${jugador.valor}
+                                                <br><b>$${jugador.valor}</b>
                                                 <button id="${idBoton}">COMPRAR</button></li>`;
         });
 
