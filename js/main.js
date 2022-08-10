@@ -52,7 +52,7 @@ let jugadoresBrasil = [{id: 1, nombre: "Dida", img: "https://github.com/Yurakosk
                        {id: 4, nombre: "Ronaldinho", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldinho.jpg?raw=true", puntaje: 0}
                     ];
 
-alert("Adquiera 4 jugadores para poder comenzar");
+//Swal.fire('Adquiera 4 jugadores para poder comenzar');
 getJugadoresDisponiblesLocalStorage();
 getEquipoLocalStorage();
 getDineroDisponibleLocalStorage();
@@ -71,7 +71,8 @@ function iniciarTorneo(){
             pantalla2.innerHTML= `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px>`;
             iniciarPartido();
             }else{
-                alert("Debe adquirir 4 jugadores");
+                Swal.fire({icon: 'error',
+                           text: 'Debe adquirir 4 jugadores para empezar'});
             }})
 }
 
@@ -120,14 +121,9 @@ function iniciarPartido(){
 function asignarPuntajeAJugadores(){
     for(let i=0 ; i<=4; i++){
         jugadoresBrasil[i].puntaje= obtenerPuntajeRandomPremium(4);
-        puntosVisitantes.innerHTML += `<li>${jugadoresBrasil[i].puntaje}</li>`
-
-        if(jugadoresPlantel[i].valor > VALOR_JUGADOR_MEDIO){
-            jugadoresPlantel[i].puntaje= obtenerPuntajeRandomPremium(4);
-            }else{
-                jugadoresPlantel[i].puntaje= obtenerPuntajeRandom(11);
-            }
-            puntosLocales.innerHTML += `<li>${jugadoresPlantel[i].puntaje}</li>`
+        puntosVisitantes.innerHTML += `<li>${jugadoresBrasil[i].puntaje}</li>`;
+        (jugadoresPlantel[i].valor > VALOR_JUGADOR_MEDIO) ? jugadoresPlantel[i].puntaje= obtenerPuntajeRandomPremium(4) : jugadoresPlantel[i].puntaje= obtenerPuntajeRandom(11);
+        puntosLocales.innerHTML += `<li>${jugadoresPlantel[i].puntaje}</li>`;
         }
 }
 
@@ -209,7 +205,7 @@ function eliminarJugadorDeDisponibles(idJugador){
     if(index !== -1){
         jugadoresDisponibles = jugadoresDisponibles.filter((jugador) => jugador.id !== idJugador);
         mostrarJugadoresDisponibles();
-        }else{alert("No se encontró al jugador seleccionado")}
+        }else{Swal.fire("No se encontró al jugador seleccionado");}
 }
 
 function validarCompra(jugador){
@@ -218,9 +214,11 @@ function validarCompra(jugador){
              eliminarJugadorDeDisponibles(jugador.id);
              completarCompra(jugador);
              mostrarDineroDisponible();
-            }else{alert("Su presupuesto es insuficiente.");
+            }else{Swal.fire({icon: 'error',
+                           text: 'Su saldo es insuficiente.'});
         }
-    }else{alert("Superó el límite de jugadores contratados");
+    }else{Swal.fire({icon: 'error',
+                    text: 'Superó el límite de jugadores contratados'});
     }
 }
 

@@ -80,6 +80,7 @@ p{
 #cards-mis-jugadores img, #cards-disponibles img{
     width: 90px;
     height: 90px;
+    border-radius: 0.4rem;
 }
 .contenedor-dinero{
     border-radius: 1rem;
