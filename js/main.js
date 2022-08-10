@@ -27,16 +27,32 @@ const VALOR_JUGADOR_MEDIO = 500;
 const PUNTOS_PARTIDO_GANADO = 3;
 const PUNTOS_PARTIDO_EMPATADO = 1;
 const PUNTAJE_MINIMO_JUGADOR_PREMIUM = 7;
+/*
+const nombreJugador= {
+    nombre: prompt("Ingrese su nombre"),
+    nombreEquipo: prompt("Ingrese el nombre del equipo")
+}
+const {nombre, nombreEquipo} = nombreJugador;
+//alert(`Bienvenido ${nombre}, tu equipo es ${nombreEquipo}`);
+/*/
+
 
 let jugadoresDisponibles = [
-       {id: 1, nombre: "Mono Burgos", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/mono-burgos.jpg?raw=true", valor: 800, puntaje: 0},
-       {id: 2, nombre: "Pupi Zanetti", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/pupi-zanetti.jpg?raw=true", valor: 300, puntaje: 0},
-       {id: 3, nombre: "Lionel Messi", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/messi.jpg?raw=true", valor: 1000, puntaje: 0},
-       {id: 4, nombre: "Brujita Verón", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/veron.jpg?raw=true", valor: 1000, puntaje: 0},
-       {id: 5, nombre: "H. Crespo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/crespo.jpg?raw=true", valor: 300, puntaje: 0},
-       {id: 6, nombre: "G. Batistuta", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/bati.jpg?raw=true", valor: 2000, puntaje: 0},
-       {id: 7, nombre: "Di María", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/di-maria.jpg?raw=true", valor: 900, puntaje: 0},
-       {id: 8, nombre: "M. Palermo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/palermo.jpg?raw=true", valor: 700, puntaje: 0}
+        {id: 1, nombre: "Burgos", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/mono-burgos.jpg?raw=true", valor: 800, puntaje: 0},
+        {id: 2, nombre: "Zanetti", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/pupi-zanetti.jpg?raw=true", valor: 300, puntaje: 0},
+        {id: 3, nombre: "Messi", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/messi.jpg?raw=true", valor: 1000, puntaje: 0},
+        {id: 4, nombre: "Verón", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/veron.jpg?raw=true", valor: 1000, puntaje: 0},
+        {id: 5, nombre: "Crespo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/crespo.jpg?raw=true", valor: 300, puntaje: 0},
+        {id: 6, nombre: "Batistuta", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/bati.jpg?raw=true", valor: 2000, puntaje: 0},
+        {id: 7, nombre: "Di María", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/di-maria.jpg?raw=true", valor: 900, puntaje: 0},
+        {id: 8, nombre: "Palermo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/palermo.jpg?raw=true", valor: 700, puntaje: 0}
+    ];
+
+let jugadoresBrasil = [
+        {id: 1, nombre: "Dida", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/dida.jpg?raw=true", puntaje: 0}, 
+        {id: 2, nombre: "Kaka", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/kaka.jpg?raw=true", puntaje: 0},
+        {id: 3, nombre: "Ronaldo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldo.jpg?raw=true", puntaje: 0},
+        {id: 4, nombre: "Ronaldinho", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldinho.jpg?raw=true", puntaje: 0}
     ];
 
 const equiposRivales = [
@@ -46,12 +62,6 @@ const equiposRivales = [
     ];
 
 let jugadoresPlantel = [];
-let jugadoresBrasil = [{id: 1, nombre: "Dida", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/dida.jpg?raw=true", puntaje: 0}, 
-                       {id: 2, nombre: "Kaka", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/kaka.jpg?raw=true", puntaje: 0},
-                       {id: 3, nombre: "Ronaldo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldo.jpg?raw=true", puntaje: 0},
-                       {id: 4, nombre: "Ronaldinho", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/ronaldinho.jpg?raw=true", puntaje: 0}
-                    ];
-
 //Swal.fire('Adquiera 4 jugadores para poder comenzar');
 getJugadoresDisponiblesLocalStorage();
 getEquipoLocalStorage();
@@ -113,7 +123,6 @@ function iniciarPartido(){
             document.getElementById(`resultados`).addEventListener("click", ()=>{
                 contenedorIniciarPartido.innerHTML = "";
                 asignarPuntajeAJugadores();
-                sumarPuntajeJugadores();
             })
 }
 
@@ -125,6 +134,7 @@ function asignarPuntajeAJugadores(){
         (jugadoresPlantel[i].valor > VALOR_JUGADOR_MEDIO) ? jugadoresPlantel[i].puntaje= obtenerPuntajeRandomPremium(4) : jugadoresPlantel[i].puntaje= obtenerPuntajeRandom(11);
         puntosLocales.innerHTML += `<li>${jugadoresPlantel[i].puntaje}</li>`;
         }
+        sumarPuntajeJugadores();
 }
 
 function sumarPuntajeJugadores(){
@@ -140,7 +150,7 @@ function mostrarEquipos(){
         });
 
     jugadoresBrasil.forEach((jugador) => {
-            jugadoresVisitantes.innerHTML += ` <li><img src="${jugador.img}"></li>`
+            jugadoresVisitantes.innerHTML += `<li><img src="${jugador.img}"></li>`
         })
 }
 
