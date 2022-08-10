@@ -27,15 +27,16 @@ const VALOR_JUGADOR_MEDIO = 500;
 const PUNTOS_PARTIDO_GANADO = 3;
 const PUNTOS_PARTIDO_EMPATADO = 1;
 const PUNTAJE_MINIMO_JUGADOR_PREMIUM = 7;
-/*
-const nombreJugador= {
-    nombre: prompt("Ingrese su nombre"),
-    nombreEquipo: prompt("Ingrese el nombre del equipo")
-}
-const {nombre, nombreEquipo} = nombreJugador;
-//alert(`Bienvenido ${nombre}, tu equipo es ${nombreEquipo}`);
-/*/
 
+
+//DESESTRUCTURACION
+const jugador= {
+    nombreJugador: prompt("Ingrese su nombre"),
+    nombreEquipo: "Argentina"
+}
+
+const {nombreJugador, nombreEquipo} = jugador;
+alert(`Bienvenido ${nombre}, tu equipo es ${nombreEquipo}`);
 
 let jugadoresDisponibles = [
         {id: 1, nombre: "Burgos", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/mono-burgos.jpg?raw=true", valor: 800, puntaje: 0},
