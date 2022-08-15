@@ -15,7 +15,6 @@ const contenedorIniciarPartido = document.querySelector("#contenedor-iniciar-par
 const puntosLocales = document.querySelector("#puntos-locales");
 const puntosVisitantes = document.querySelector("#puntos-visitantes");
 const puntosFechaLocales = document.querySelector("#puntos-fecha-locales");
-
 const contenedorPuntosFecha = document.querySelector("#contenedor-puntos-fecha");
 const puntosFechaVisitantes = document.querySelector("#puntos-fecha-visitantes");
 const siguiente = document.querySelector("#contenedor-boton-siguiente");
@@ -161,9 +160,9 @@ function mostrarPuntajeJugadores(){
     document.getElementById("puntos-fecha-visitantes").innerHTML= puntajeVisitantesFecha;
 
     if(puntajeLocalesFecha > puntajeVisitantesFecha){
-        ganador.innerHTML = `<img src="../imagenes/win.jpg"></img>`
+        ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/win.jpg?raw=true"></img>`
     }else{
-        ganador.innerHTML = `<img src="../imagenes/lose.jpg"></img>`
+        ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/lose.jpg?raw=true"></img>`
     }
 }
 
