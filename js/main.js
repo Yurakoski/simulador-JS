@@ -15,8 +15,12 @@ const contenedorIniciarPartido = document.querySelector("#contenedor-iniciar-par
 const puntosLocales = document.querySelector("#puntos-locales");
 const puntosVisitantes = document.querySelector("#puntos-visitantes");
 const puntosFechaLocales = document.querySelector("#puntos-fecha-locales");
+
+const contenedorPuntosFecha = document.querySelector("#contenedor-puntos-fecha");
 const puntosFechaVisitantes = document.querySelector("#puntos-fecha-visitantes");
+const siguiente = document.querySelector("#contenedor-boton-siguiente");
 const aceptar = document.querySelector("#aceptar");
+const ganador = document.querySelector("#ganador");
 
 let miPresupuesto = 4000;
 let dineroGastado = 0;
@@ -30,7 +34,7 @@ const PUNTAJE_MINIMO_JUGADOR_PREMIUM = 7;
 
 
 //DESESTRUCTURACION
-const jugador= {
+/*const jugador= {
     nombre: prompt("Ingrese su nombre"),
     equipo: "Argentina"
 }
@@ -40,6 +44,7 @@ const {nombre, equipo} = jugador;
 Swal.fire({
             text: `Bienvenido ${nombre}, tu equipo es ${equipo}`
         });
+*/
 
 let jugadoresDisponibles = [
         {id: 1, nombre: "Burgos", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/mono-burgos.jpg?raw=true", valor: 800, puntaje: 0},
@@ -127,12 +132,13 @@ function iniciarPartido(){
             document.getElementById(`resultados`).addEventListener("click", ()=>{
                 contenedorIniciarPartido.innerHTML = "";
                 asignarPuntajeAJugadores();
+                //continuar();
             })
 }
 
 //El jugador premium (los más caros), obtienen puntajes mayores a 7
 function asignarPuntajeAJugadores(){
-    for(let i=0 ; i<=4; i++){
+    for(let i=0 ; i<4; i++){
         jugadoresBrasil[i].puntaje= obtenerPuntajeRandomPremium(4);
         puntosVisitantes.innerHTML += `<li>${jugadoresBrasil[i].puntaje}</li>`;
         (jugadoresPlantel[i].valor > VALOR_JUGADOR_MEDIO) ? jugadoresPlantel[i].puntaje= obtenerPuntajeRandomPremium(4) : jugadoresPlantel[i].puntaje= obtenerPuntajeRandom(11);
@@ -142,10 +148,23 @@ function asignarPuntajeAJugadores(){
 }
 
 function sumarPuntajeJugadores(){
+    siguiente.innerHTML = "";
     puntajeLocalesFecha = jugadoresPlantel.map((jugador) => jugador.puntaje).reduce((acum, elem) => acum + elem, 0);
     puntajeVisitantesFecha = jugadoresBrasil.map((jugador) => jugador.puntaje).reduce((acum, elem) => acum + elem, 0);
-    puntosFechaLocales.innerHTML= puntajeLocalesFecha;
-    puntosFechaVisitantes.innerHTML= puntajeVisitantesFecha;
+    mostrarPuntajeJugadores();
+}
+
+function mostrarPuntajeJugadores(){
+    contenedorPuntosFecha.innerHTML = `<div id="puntos-fecha-locales"></div>
+                                       <div id="puntos-fecha-visitantes"></div>`
+    document.getElementById("puntos-fecha-locales").innerHTML= puntajeLocalesFecha;
+    document.getElementById("puntos-fecha-visitantes").innerHTML= puntajeVisitantesFecha;
+
+    if(puntajeLocalesFecha > puntajeVisitantesFecha){
+        ganador.innerHTML = `<img src="../imagenes/win.jpg"></img>`
+    }else{
+        ganador.innerHTML = `<img src="../imagenes/lose.jpg"></img>`
+    }
 }
 
 function mostrarEquipos(){

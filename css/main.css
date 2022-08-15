@@ -118,6 +118,12 @@ button{
     padding: 0.5rem;
 }
 
+#contenedor-puntos-fecha{
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
 #jugadores-locales img, #jugadores-visitantes img{
     justify-content: flex-end;
     height: 4rem;
@@ -131,8 +137,15 @@ button{
     background: rgba(0, 0, 0, 0.823);
 }
 
+#ganador img{
+    width: 100%;
+}
+
 #puntos-fecha-locales, #puntos-fecha-visitantes{
-    background-color: red;
+    padding: 1rem;
+    font-size: 2rem;
+    color: white;
+    background-color: black;
 }
 
 @media only screen and (max-width: 480px) {
