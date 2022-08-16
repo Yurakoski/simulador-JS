@@ -161,8 +161,10 @@ function mostrarPuntajeJugadores(){
 
     if(puntajeLocalesFecha > puntajeVisitantesFecha){
         ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/win.jpg?raw=true"></img>`
-    }else{
+    }if(puntajeLocalesFecha < puntajeVisitantesFecha){
         ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/lose.jpg?raw=true"></img>`
+    }else{
+        ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/empate.jpg?raw=true"></img>`
     }
 }
 
