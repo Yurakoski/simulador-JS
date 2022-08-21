@@ -31,30 +31,7 @@ const PUNTOS_PARTIDO_GANADO = 3;
 const PUNTOS_PARTIDO_EMPATADO = 1;
 const PUNTAJE_MINIMO_JUGADOR_PREMIUM = 7;
 
-
-//DESESTRUCTURACION
-/*const jugador= {
-    nombre: prompt("Ingrese su nombre"),
-    equipo: "Argentina"
-}
-
-const {nombre, equipo} = jugador;
-
-Swal.fire({
-            text: `Bienvenido ${nombre}, tu equipo es ${equipo}`
-        });
-*/
-
-let jugadoresDisponibles = [
-        {id: 1, nombre: "Burgos", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/mono-burgos.jpg?raw=true", valor: 800, puntaje: 0},
-        {id: 2, nombre: "Zanetti", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/pupi-zanetti.jpg?raw=true", valor: 300, puntaje: 0},
-        {id: 3, nombre: "Messi", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/messi.jpg?raw=true", valor: 1000, puntaje: 0},
-        {id: 4, nombre: "Verón", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/veron.jpg?raw=true", valor: 1000, puntaje: 0},
-        {id: 5, nombre: "Crespo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/crespo.jpg?raw=true", valor: 300, puntaje: 0},
-        {id: 6, nombre: "Batistuta", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/bati.jpg?raw=true", valor: 2000, puntaje: 0},
-        {id: 7, nombre: "Di María", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/di-maria.jpg?raw=true", valor: 900, puntaje: 0},
-        {id: 8, nombre: "Palermo", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/palermo.jpg?raw=true", valor: 700, puntaje: 0}
-    ];
+let jugadoresDisponibles = [];
 
 let jugadoresBrasil = [
         {id: 1, nombre: "Dida", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/dida.jpg?raw=true", puntaje: 0}, 
@@ -71,13 +48,28 @@ const equiposRivales = [
 
 let jugadoresPlantel = [];
 //Swal.fire('Adquiera 4 jugadores para poder comenzar');
-getJugadoresDisponiblesLocalStorage();
-getEquipoLocalStorage();
-getDineroDisponibleLocalStorage();
-mostrarJugadoresDisponibles();
-mostrarJugadoresPlantel();
-mostrarDineroDisponible();
-iniciarTorneo();
+
+cargarJugadores();
+
+function cargarJugadores(){
+    fetch('/js/jugadores.json')
+    .then((response) => response.json())
+    .then((arrayJugadores) => {
+        arrayJugadores.forEach((jugador)=>{agregarJugadorADisponibles(jugador)})
+    })
+    .then(() => {iniciar();
+    })
+}
+
+function iniciar(){
+    getJugadoresDisponiblesLocalStorage();
+    getEquipoLocalStorage();
+    getDineroDisponibleLocalStorage();
+    mostrarJugadoresDisponibles();
+    mostrarJugadoresPlantel();
+    mostrarDineroDisponible();
+    iniciarTorneo();
+}
 
 function iniciarTorneo(){
     document.getElementById(`boton-iniciar`).addEventListener("click", () => {
