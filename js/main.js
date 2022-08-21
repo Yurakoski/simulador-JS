@@ -52,7 +52,7 @@ let jugadoresPlantel = [];
 cargarJugadores();
 
 function cargarJugadores(){
-    fetch('/js/jugadores.json')
+    fetch('https://github.com/Yurakoski/simulador-JS/blob/main/js/jugadores.json')
     .then((response) => response.json())
     .then((arrayJugadores) => {
         arrayJugadores.forEach((jugador)=>{agregarJugadorADisponibles(jugador)})
