@@ -47,10 +47,10 @@ const jugadoresBrasil = [
     ];
 
     const jugadoresAlemania = [
-        {id: 1, nombre: "Neuer", img: "../imagenes/neuer.jpg", puntaje: 0}, 
-        {id: 2, nombre: "Muller", img: "../imagenes/muller.jpg", puntaje: 0},
-        {id: 3, nombre: "Kroos", img: "../imagenes/kroos.jpg", puntaje: 0},
-        {id: 4, nombre: "Werner", img: "../imagenes/werner.jpg", puntaje: 0}
+        {id: 1, nombre: "Neuer", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/neuer.jpg?raw=true", puntaje: 0}, 
+        {id: 2, nombre: "Muller", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/muller.jpg?raw=true", puntaje: 0},
+        {id: 3, nombre: "Kroos", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/kroos.jpg?raw=true", puntaje: 0},
+        {id: 4, nombre: "Werner", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/werner.jpg?raw=true", puntaje: 0}
     ];    
 
 let jugadoresPlantel = [];
