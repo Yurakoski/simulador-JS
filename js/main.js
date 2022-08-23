@@ -108,7 +108,7 @@ function iniciarPartido(equipoRival, banner){
                         pantallaTorneo.innerHTML = bannerVsAlemania;
                         iniciarPartido(jugadoresAlemania, bannerVsAlemania);
                         })
-                }else{Swal.fire("FINNN")}
+                }//else{Swal.fire("FINNN")}
             })  
 }
 

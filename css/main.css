@@ -148,6 +148,11 @@ button{
     background-color: black;
 }
 
+#contenedor-siguiente-partido{
+    display: flex;
+    justify-content: center;
+}
+
 @media only screen and (max-width: 480px) {
     .seccion-disponibles {
         min-height: 320px ;
@@ -167,9 +172,8 @@ button{
     }
 
     #siguiente-partido{
-        display: flex;
-        justify-content: center;
-        padding-top: 0.8rem;
+        padding: 0.3rem;
+        margin-top: 0.8rem;
     }
 
 }
