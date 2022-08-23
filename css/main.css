@@ -107,14 +107,14 @@ button{
     background: rgba(0, 0, 0, 0.596);
 }
 
-.contenedor-partido{
+#contenedor-partido{
     display: flex;
     list-style: none;
     justify-content: center;
     margin-top: 1rem;
     color: white;
 }
-.contenedor-partido li{
+#contenedor-partido li{
     padding: 0.5rem;
 }
 
@@ -164,6 +164,12 @@ button{
 
     #boton-iniciar h5{
         font-size: 0.8rem;
+    }
+
+    #siguiente-partido{
+        display: flex;
+        justify-content: center;
+        padding-top: 0.8rem;
     }
 
 }
