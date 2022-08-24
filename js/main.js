@@ -22,15 +22,19 @@ const aceptar = document.querySelector("#aceptar");
 const ganador = document.querySelector("#ganador");
 const contenedorSiguientePartido = document.querySelector("#contenedor-siguiente-partido");
 const contenedorPartido = document.querySelector("#contenedor-partido");
+const contenedorBotonEstadisticas= document.querySelector("#contenedor-boton-estadisticas");
+const seccionPartidos = document.querySelector("#seccion-partidos");
+const contenedorEstadisticas = document.querySelector("#contenedor-estadisticas");
 
 const bannerVsBrasil = `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px>`;
 const bannerVsAlemania = `<img src="./imagenes/vs-alemania.jpg" id="banner-vs" width= 350px>`
 let cantidadDePartidos = 0;
 
 let miPresupuesto = 4000;
-let dineroGastado = 0;
-let sumatoriaPuntajeFecha= 0;
 let misPuntosAcumulados = 0;
+let partidosGanados = 0;
+let partidosPerdidos = 0;
+let partidosEmpatados = 0;
 const CANTIDAD_DE_JUGADORES_POR_EQUIPO = 4;
 const VALOR_JUGADOR_MEDIO = 500;
 const PUNTOS_PARTIDO_GANADO = 3;
@@ -64,7 +68,7 @@ function cargarJugadores(){
     .then((arrayJugadores) => {
         arrayJugadores.forEach((jugador)=>{agregarJugadorADisponibles(jugador)})
     })
-    .then(() => {prepararPantallaPrincipal();  //Luego de cargar los jugadores disponibles se puede iniciar
+    .then(() => {prepararPantallaPrincipal();
     })
 }
 
@@ -104,11 +108,26 @@ function iniciarPartido(equipoRival, banner){
                 if(cantidadDePartidos < 2){
                     contenedorSiguientePartido.innerHTML= `<button id="siguiente-partido">Siguiente Partido</button>`;
                     document.getElementById(`siguiente-partido`).addEventListener("click", () => {
-                        limpiarHTML();
-                        pantallaTorneo.innerHTML = bannerVsAlemania;
-                        iniciarPartido(jugadoresAlemania, bannerVsAlemania);
+                                limpiarHTML();
+                                pantallaTorneo.innerHTML = bannerVsAlemania;
+                                iniciarPartido(jugadoresAlemania, bannerVsAlemania);
                         })
-                }//else{Swal.fire("FINNN")}
+                }else{
+                    contenedorBotonEstadisticas.innerHTML= `<button id="boton-estadisticas">Ver estadísticas</button>`;
+                    document.getElementById("boton-estadisticas").addEventListener("click", ()=>{
+                                seccionPartidos.innerHTML = "";
+                                contenedorEstadisticas.innerHTML= `<p>PARTIDOS GANADOS: ${partidosGanados}</p>
+                                                                    <p>PARTIDOS PERDIDOS: ${partidosPerdidos}</p>
+                                                                    <p>PARTIDOS EMPATADOS: ${partidosEmpatados}</p>
+                                                                    <h2>PUNTOS OBTENIDOS: ${misPuntosAcumulados}</h2>`
+                                                                    //<button id="reiniciar-torneo">Reiniciar Torneo</button>`;
+                                
+                    //document.getElementById("reiniciar-torneo").addEventListener("click",()=>{
+                                                                //contenedorEstadisticas.innerHTML="";
+                                           //*********************** */ iniciarSimulador();
+                                                                })
+                   // })    
+                }
             })  
 }
 
@@ -158,11 +177,16 @@ function mostrarPuntajeJugadores(){
     document.getElementById("puntos-fecha-visitantes").innerHTML= puntajeVisitantesFecha;
 
     if(puntajeLocalesFecha > puntajeVisitantesFecha){
+        misPuntosAcumulados += PUNTOS_PARTIDO_GANADO;
+        partidosGanados++;
         ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/win.jpg?raw=true"></img>`
     }else{
         if(puntajeLocalesFecha < puntajeVisitantesFecha){
         ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/lose.jpg?raw=true"></img>`
+        partidosPerdidos++;
         }else{
+        misPuntosAcumulados += PUNTOS_PARTIDO_EMPATADO;
+        partidosEmpatados++;
         ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/empate.jpg?raw=true"></img>`
         }
     }
@@ -236,7 +260,6 @@ function venderJugador(idJugador){
     const index = jugadoresPlantel.findIndex(jugador => jugador.id === idJugador);
     if(index !== -1){
         miPresupuesto += jugadoresPlantel[index].valor;
-        dineroGastado -=  jugadoresPlantel[index].valor;
         mostrarDineroDisponible();
         agregarJugadorADisponibles(jugadoresPlantel[index]);
         jugadoresPlantel.splice(index, 1);
@@ -286,7 +309,6 @@ function tieneDineroSuficienteParaComprar(jugador){
 
 function completarCompra(jugador){
     miPresupuesto -= jugador.valor;
-    dineroGastado += jugador.valor;
     jugadoresPlantel.push(jugador);
     mostrarJugadoresPlantel();
 }

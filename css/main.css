@@ -6,7 +6,7 @@
     font-family: 'Jost', sans-serif; 
 }
 
-.fondoInicio{
+#fondo-inicio{
     background-image: url(../imagenes/fondo-cancha.jpg);
     height: 100vh;
     background-position: center center;
@@ -147,15 +147,30 @@ button{
 }
 
 #puntos-fecha-locales, #puntos-fecha-visitantes{
-    padding: 0.2rem;
-    font-size: 1.5rem;
+    padding: 0.4rem;
+    font-size: 1.8rem;
     color: white;
     background-color: black;
 }
 
-#contenedor-siguiente-partido{
+#contenedor-siguiente-partido, #contenedor-boton-estadisticas, #contenedor-estadisticas{
     display: flex;
     justify-content: center;
+    margin-top: 0.5rem;
+}
+
+#contenedor-estadisticas{
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 1rem;
+}
+
+#contenedor-estadisticas p, #contenedor-estadisticas h2{
+    padding: 2rem;
+    margin-top: 2rem;
+    border-radius: 2rem;
+    background-color: rgba(0, 0, 0, 0.823);
 }
 
 @media only screen and (max-width: 480px) {
