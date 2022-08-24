@@ -137,13 +137,18 @@ button{
     background: rgba(0, 0, 0, 0.823);
 }
 
+#ganador{
+    display: flex;
+    justify-content: center;
+}
+
 #ganador img{
-    width: 100%;
+    width: 30%;
 }
 
 #puntos-fecha-locales, #puntos-fecha-visitantes{
-    padding: 1rem;
-    font-size: 2rem;
+    padding: 0.2rem;
+    font-size: 1.5rem;
     color: white;
     background-color: black;
 }
@@ -176,4 +181,7 @@ button{
         margin-top: 0.8rem;
     }
 
+    #ganador img{
+        width: 100%;
+    }
 }
