@@ -13,6 +13,11 @@
     background-attachment: fixed;
     background-size: cover;
 }
+
+#dinero-disponible{
+    padding: 0.5rem;
+}
+
 .banner-vs{
     width: 50%;
 }

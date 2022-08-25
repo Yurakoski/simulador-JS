@@ -348,7 +348,7 @@ function completarCompra(jugador){
 
 function mostrarDineroDisponible(){
     
-    dineroDisponible.innerHTML = `<h4><b>Dinero Disponible: ${miPresupuesto}</b></h4>`;
+    dineroDisponible.innerHTML = `<h4><b>Dinero Disponible:<br> ${miPresupuesto}</b></h4>`;
 }
 
 function ordenarJugadoresDisponiblesPorId(){
