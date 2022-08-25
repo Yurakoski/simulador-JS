@@ -1,7 +1,7 @@
 const pantallaInicio = document.querySelector("#pantalla-inicio")
 const cardsJugadoresDisponibles = document.querySelector("#cards-disponibles");
 const subtituloJugadoresDisponibles = document.querySelector("#subtitulo-jugadores-disponibles");
-const contenedorDinero = document.querySelector(".contenedor-dinero");
+const contenedorDinero = document.querySelector("#contenedor-dinero");
 const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
 const dineroDisponible = document.querySelector("#dinero-disponible");
 const subtituloDineroDisponible = document.querySelector("#subtitulo-dinero-disponible");
@@ -148,7 +148,7 @@ function iniciarPartido(equipoRival, banner){
                                                             <h2>PUNTOS OBTENIDOS: ${misPuntosAcumulados}</h2>
                                                             <button id="reiniciar-torneo">Reiniciar Torneo</button>`;
                         document.getElementById("reiniciar-torneo").addEventListener("click", ()=>{
-                                    
+                                    dineroDisponible.innerHTML = `<div>$${miPresupuesto}</div>`;
                                     contenedorEstadisticas.innerHTML ="";
                                     contenedorDinero.innerHTML = `<h4><b>Dinero Disponible: ${miPresupuesto}</b></h4>`;
                                     partidosGanados = 0;
@@ -347,7 +347,8 @@ function completarCompra(jugador){
 }
 
 function mostrarDineroDisponible(){
-    dineroDisponible.innerHTML = `<div>$${miPresupuesto}</div>`;
+    
+    dineroDisponible.innerHTML = `<h4><b>Dinero Disponible: ${miPresupuesto}</b></h4>`;
 }
 
 function ordenarJugadoresDisponiblesPorId(){
