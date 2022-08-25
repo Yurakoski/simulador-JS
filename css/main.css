@@ -8,7 +8,7 @@
 
 #fondo-inicio{
     background-image: url(../imagenes/fondo-cancha.jpg);
-    height: 100vh;
+    min-height: 100vh;
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
@@ -186,9 +186,6 @@ button{
 }
 
 @media only screen and (max-width: 480px) {
-    .seccion-disponibles {
-        min-height: 320px ;
-    }
     
     #cards-mis-jugadores img, #cards-disponibles img{
         width: 70px;

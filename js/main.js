@@ -5,7 +5,7 @@ const contenedorDinero = document.querySelector(".contenedor-dinero");
 const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
 const dineroDisponible = document.querySelector("#dinero-disponible");
 const subtituloDineroDisponible = document.querySelector("#subtitulo-dinero-disponible");
-const botonIniciarCampeonato = document.querySelector("#boton-iniciar");
+const contenedorBotonIniciar = document.querySelector("#contenedor-boton-iniciar");
 const seccionDisponibles = document.querySelector("#seccion-disponibles");
 const seccionMisJugadores = document.querySelector("#seccion-mis-jugadores");
 const pantallaTorneo = document.querySelector("#pantalla-torneo");
@@ -25,6 +25,7 @@ const contenedorSiguientePartido = document.querySelector("#contenedor-siguiente
 const contenedorPartido = document.querySelector("#contenedor-partido");
 const contenedorBotonEstadisticas= document.querySelector("#contenedor-boton-estadisticas");
 const seccionPartidos = document.querySelector("#seccion-partidos");
+const botonEstadisticas = document.querySelector("#boton-estadisticas");
 const contenedorEstadisticas = document.querySelector("#contenedor-estadisticas");
 
 const bannerVsBrasil = `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px>`;
@@ -80,7 +81,12 @@ function prepararPantallaPrincipal(){
     mostrarJugadoresDisponibles();
     mostrarJugadoresPlantel();
     mostrarDineroDisponible();
+    mostrarBotonIniciar();
     iniciarSimulador();
+}
+
+function mostrarBotonIniciar() {
+    contenedorBotonIniciar.innerHTML = `<button id="boton-iniciar"><h5>INICIAR <br>CAMPEONATO</h5></button>`;
 }
 
 function iniciarSimulador(){
@@ -92,11 +98,7 @@ function iniciarSimulador(){
             cardsJugadoresDisponibles.innerHTML = "";
             cardsMisJugadores.innerHTML = "";
             contenedorDinero.innerHTML = "";
-            document.getElementById("boton-iniciar").innerHTML = "";
-            //seccionMisJugadores.innerHTML ="";
-
-
-
+            contenedorBotonIniciar.innerHTML="";
             iniciarPartido(jugadoresBrasil, bannerVsBrasil);
             }else{
                 Swal.fire({icon: 'error',
@@ -125,31 +127,31 @@ function iniciarPartido(equipoRival, banner){
                 }else{
                     contenedorBotonEstadisticas.innerHTML= `<button id="boton-estadisticas">Ver estadísticas</button>`;
                     document.getElementById("boton-estadisticas").addEventListener("click", ()=>{
+                        document.getElementById("contenedor-boton-estadisticas").innerHTML="";
                         pantallaTorneo.innerHTML="";
                         jugadoresLocales.innerHTML="";
                         jugadoresVisitantes.innerHTML="";
-                        document.getElementById("boton-estadisticas").innerHTML="";
                         contenedorPuntosFecha.innerHTML ="";
                         ganador.innerHTML = "";
                         contenedorSiguientePartido.innerHTML ="";
                         puntosLocales.innerHTML="";
                         puntosVisitantes.innerHTML="";
-                                contenedorEstadisticas.innerHTML= `<p>PARTIDOS GANADOS: ${partidosGanados}</p>
-                                                                    <p>PARTIDOS PERDIDOS: ${partidosPerdidos}</p>
-                                                                    <p>PARTIDOS EMPATADOS: ${partidosEmpatados}</p>
-                                                                    <h2>PUNTOS OBTENIDOS: ${misPuntosAcumulados}</h2>
-                                                                    <button id="reiniciar-torneo">Reiniciar Torneo</button>`;
-                                                                    document.getElementById("reiniciar-torneo").addEventListener("click", ()=>{
-                                                                        contenedorEstadisticas.innerHTML="";
-                                                                        contenedorDinero.innerHTML = `<h4><b>Dinero Disponible: ${miPresupuesto}</b></h4>`;
-                                                                        document.getElementById("boton-iniciar").innerHTML = "";
-                                                                        partidosGanados = 0;
-                                                                        partidosPerdidos = 0;
-                                                                        partidosEmpatados = 0;
-                                                                        cantidadDePartidos = 0;
-                                                                        misPuntosAcumulados = 0;
-                                                                        cargarJugadores();
-                                                                })
+                        contenedorEstadisticas.innerHTML= `<p>PARTIDOS GANADOS: ${partidosGanados}</p>
+                                                            <p>PARTIDOS PERDIDOS: ${partidosPerdidos}</p>
+                                                            <p>PARTIDOS EMPATADOS: ${partidosEmpatados}</p>
+                                                            <h2>PUNTOS OBTENIDOS: ${misPuntosAcumulados}</h2>
+                                                            <button id="reiniciar-torneo">Reiniciar Torneo</button>`;
+                        document.getElementById("reiniciar-torneo").addEventListener("click", ()=>{
+                                    
+                                    contenedorEstadisticas.innerHTML ="";
+                                    contenedorDinero.innerHTML = `<h4><b>Dinero Disponible: ${miPresupuesto}</b></h4>`;
+                                    partidosGanados = 0;
+                                    partidosPerdidos = 0;
+                                    partidosEmpatados = 0;
+                                    cantidadDePartidos = 0;
+                                    misPuntosAcumulados = 0;
+                                    cargarJugadores();
+                         })
                     })
                 }
             })  
@@ -365,43 +367,3 @@ function asignarPuntajeEquipoRival(idEquipo){
 function obtenerIndexDeEquipoRival(idEquipo){
     return equiposRivales.findIndex(equipo => equipo.id === idEquipo);
 }
-/*
-//Partido entre equipo propio y el rival
-function acumularPuntosEquiposPrincipales(idEquipo){
-      const index = obtenerIndexDeEquipoRival(idEquipo);
-      if(index !== -1){
-        if (sumatoriaPuntajeFecha > equiposRivales[index].puntajeJugadoresFecha){
-            misPuntosAcumulados += PUNTOS_PARTIDO_GANADO;
-        }else{
-            if(sumatoriaPuntajeFecha < equiposRivales[index].puntajeJugadoresFecha){
-                equiposRivales[index].puntosAcumulados += PUNTOS_PARTIDO_GANADO;
-            }else{
-                misPuntosAcumulados += PUNTOS_PARTIDO_EMPATADO;
-                equiposRivales[index].puntosAcumulados += PUNTOS_PARTIDO_EMPATADO;
-                }
-            }
-        } 
-}
-
-//Determina los resultados del partido secundario (el que no juega mi equipo) 
-//y suma puntos por partido ganado y empatado al acumulador (puntosAcumulados)
-
-function acumularPuntosEquiposSecundarios(idEquipoLocal, idEquipoVisitante){
-    const indexEquipoLocal = obtenerIndexDeEquipoRival(idEquipoLocal);
-    const indexEquipoVisitante = obtenerIndexDeEquipoRival(idEquipoVisitante);
-    
-    if(indexEquipoLocal !== -1 && indexEquipoVisitante !== -1){
-        equiposRivales[indexEquipoLocal].puntajeJugadoresFecha= obtenerPuntajeRandom(51);
-        equiposRivales[indexEquipoVisitante].puntajeJugadoresFecha= obtenerPuntajeRandom(51);
-
-        if(equiposRivales[indexEquipoLocal].puntajeJugadoresFecha > equiposRivales[indexEquipoVisitante].puntajeJugadoresFecha){
-            equiposRivales[indexEquipoLocal].puntosAcumulados += PUNTOS_PARTIDO_GANADO;
-        }else{
-            if(equiposRivales[indexEquipoLocal].puntajeJugadoresFecha < equiposRivales[indexEquipoVisitante].puntajeJugadoresFecha){
-                equiposRivales[indexEquipoVisitante].puntosAcumulados += PUNTOS_PARTIDO_GANADO;
-        }else{
-            equiposRivales[indexEquipoLocal].puntosAcumulados += PUNTOS_PARTIDO_EMPATADO;
-            equiposRivales[indexEquipoVisitante].puntosAcumulados += PUNTOS_PARTIDO_EMPATADO;
-        }
-    }
-}}*/
