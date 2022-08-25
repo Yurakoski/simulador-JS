@@ -82,7 +82,12 @@ function prepararPantallaPrincipal(){
     mostrarJugadoresPlantel();
     mostrarDineroDisponible();
     mostrarBotonIniciar();
+    mostrarTituloMisJugadores();
     iniciarSimulador();
+}
+
+function mostrarTituloMisJugadores(){
+    seccionMisJugadores.innerHTML= `<h2><b>Mis Jugadores</b></h2>`;
 }
 
 function mostrarBotonIniciar() {
@@ -99,6 +104,7 @@ function iniciarSimulador(){
             cardsMisJugadores.innerHTML = "";
             contenedorDinero.innerHTML = "";
             contenedorBotonIniciar.innerHTML="";
+            seccionMisJugadores.innerHTML="";
             iniciarPartido(jugadoresBrasil, bannerVsBrasil);
             }else{
                 Swal.fire({icon: 'error',
