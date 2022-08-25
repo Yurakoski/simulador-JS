@@ -159,18 +159,30 @@ button{
     margin-top: 0.5rem;
 }
 
+#seccion-estadisticas{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #contenedor-estadisticas{
     flex-direction: column;
     align-items: center;
     color: white;
-    font-size: 1rem;
+    background-color: rgba(0, 0, 0, 0.823);
+    width: 50%;
+    border-radius: 1rem;
 }
 
 #contenedor-estadisticas p, #contenedor-estadisticas h2{
-    padding: 2rem;
+    padding: 1.5rem;
     margin-top: 2rem;
     border-radius: 2rem;
-    background-color: rgba(0, 0, 0, 0.823);
+    font-size: 1.2rem;
+}
+
+#contenedor-estadisticas h2{
+    font-size: 1.5rem;
 }
 
 @media only screen and (max-width: 480px) {
@@ -197,6 +209,10 @@ button{
     }
 
     #ganador img{
+        width: 100%;
+    }
+
+    #contenedor-estadisticas{
         width: 100%;
     }
 }

@@ -1,6 +1,7 @@
 const pantallaInicio = document.querySelector("#pantalla-inicio")
 const cardsJugadoresDisponibles = document.querySelector("#cards-disponibles");
 const subtituloJugadoresDisponibles = document.querySelector("#subtitulo-jugadores-disponibles");
+const contenedorDinero = document.querySelector(".contenedor-dinero");
 const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
 const dineroDisponible = document.querySelector("#dinero-disponible");
 const subtituloDineroDisponible = document.querySelector("#subtitulo-dinero-disponible");
@@ -88,7 +89,14 @@ function iniciarSimulador(){
             guardarEquipoLocalStorage();
             guardarJugadoresDisponiblesLocalStorage(); 
             guardarDineroDisponibleLocalStorage(); 
-            pantallaInicio.innerHTML= "";
+            cardsJugadoresDisponibles.innerHTML = "";
+            cardsMisJugadores.innerHTML = "";
+            contenedorDinero.innerHTML = "";
+            document.getElementById("boton-iniciar").innerHTML = "";
+            //seccionMisJugadores.innerHTML ="";
+
+
+
             iniciarPartido(jugadoresBrasil, bannerVsBrasil);
             }else{
                 Swal.fire({icon: 'error',
@@ -99,7 +107,6 @@ function iniciarSimulador(){
 function iniciarPartido(equipoRival, banner){
             pantallaTorneo.innerHTML= banner;
             mostrarEquipos(equipoRival);
-            contenedorVerResultados.innerHTML = "";
             contenedorVerResultados.innerHTML = `<button id="resultados">----VER RESULTADOS---</button>`;
             document.getElementById(`resultados`).addEventListener("click", ()=>{
                 contenedorVerResultados.innerHTML = "";
@@ -108,34 +115,52 @@ function iniciarPartido(equipoRival, banner){
                 if(cantidadDePartidos < 2){
                     contenedorSiguientePartido.innerHTML= `<button id="siguiente-partido">Siguiente Partido</button>`;
                     document.getElementById(`siguiente-partido`).addEventListener("click", () => {
-                                limpiarHTML();
-                                pantallaTorneo.innerHTML = bannerVsAlemania;
+                                contenedorPuntosFecha.innerHTML ="";
+                                ganador.innerHTML = "";
+                                contenedorSiguientePartido.innerHTML ="";
+                                puntosLocales.innerHTML="";
+                                puntosVisitantes.innerHTML="";
                                 iniciarPartido(jugadoresAlemania, bannerVsAlemania);
                         })
                 }else{
                     contenedorBotonEstadisticas.innerHTML= `<button id="boton-estadisticas">Ver estadísticas</button>`;
                     document.getElementById("boton-estadisticas").addEventListener("click", ()=>{
-                                seccionPartidos.innerHTML = "";
+                        pantallaTorneo.innerHTML="";
+                        jugadoresLocales.innerHTML="";
+                        jugadoresVisitantes.innerHTML="";
+                        document.getElementById("boton-estadisticas").innerHTML="";
+                        contenedorPuntosFecha.innerHTML ="";
+                        ganador.innerHTML = "";
+                        contenedorSiguientePartido.innerHTML ="";
+                        puntosLocales.innerHTML="";
+                        puntosVisitantes.innerHTML="";
                                 contenedorEstadisticas.innerHTML= `<p>PARTIDOS GANADOS: ${partidosGanados}</p>
                                                                     <p>PARTIDOS PERDIDOS: ${partidosPerdidos}</p>
                                                                     <p>PARTIDOS EMPATADOS: ${partidosEmpatados}</p>
-                                                                    <h2>PUNTOS OBTENIDOS: ${misPuntosAcumulados}</h2>`
-                                                                    //<button id="reiniciar-torneo">Reiniciar Torneo</button>`;
-                                
-                    //document.getElementById("reiniciar-torneo").addEventListener("click",()=>{
-                                                                //contenedorEstadisticas.innerHTML="";
-                                           //*********************** */ iniciarSimulador();
+                                                                    <h2>PUNTOS OBTENIDOS: ${misPuntosAcumulados}</h2>
+                                                                    <button id="reiniciar-torneo">Reiniciar Torneo</button>`;
+                                                                    document.getElementById("reiniciar-torneo").addEventListener("click", ()=>{
+                                                                        contenedorEstadisticas.innerHTML="";
+                                                                        contenedorDinero.innerHTML = `<h4><b>Dinero Disponible: ${miPresupuesto}</b></h4>`;
+                                                                        document.getElementById("boton-iniciar").innerHTML = "";
+                                                                        partidosGanados = 0;
+                                                                        partidosPerdidos = 0;
+                                                                        partidosEmpatados = 0;
+                                                                        cantidadDePartidos = 0;
+                                                                        misPuntosAcumulados = 0;
+                                                                        cargarJugadores();
                                                                 })
-                   // })    
+                    })
                 }
             })  
 }
 
 function mostrarEquipos(equipoRival){
+    jugadoresLocales.innerHTML = "";
     jugadoresPlantel.forEach((jugador)=>{
         jugadoresLocales.innerHTML += `<li><img src="${jugador.img}"></li>`;
         });
-
+    jugadoresVisitantes.innerHTML="";
     equipoRival.forEach((jugador) => {
             jugadoresVisitantes.innerHTML += `<li><img src="${jugador.img}"></li>`;
         });
