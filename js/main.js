@@ -1,34 +1,23 @@
-const pantallaInicio = document.querySelector("#pantalla-inicio")
 const cardsJugadoresDisponibles = document.querySelector("#cards-disponibles");
-const subtituloJugadoresDisponibles = document.querySelector("#subtitulo-jugadores-disponibles");
-const contenedorDinero = document.querySelector("#contenedor-dinero");
 const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
 const dineroDisponible = document.querySelector("#dinero-disponible");
 const contenedorBotonIniciar = document.querySelector("#contenedor-boton-iniciar");
-const seccionDisponibles = document.querySelector("#seccion-disponibles");
 const seccionMisJugadores = document.querySelector("#seccion-mis-jugadores");
-const pantallaTorneo = document.querySelector("#pantalla-torneo");
+const bannerPartido = document.querySelector("#banner-partido");
 const jugadoresLocales = document.querySelector("#jugadores-locales");
 const jugadoresVisitantes = document.querySelector("#jugadores-visitantes");
-const botonIniciarPartido = document.querySelector("#boton-iniciar-partido");
 const contenedorVerResultados = document.querySelector("#contenedor-iniciar-partido");
 const puntosLocales = document.querySelector("#puntos-locales");
 const puntosVisitantes = document.querySelector("#puntos-visitantes");
-const puntosFechaLocales = document.querySelector("#puntos-fecha-locales");
 const contenedorPuntosFecha = document.querySelector("#contenedor-puntos-fecha");
-const puntosFechaVisitantes = document.querySelector("#puntos-fecha-visitantes");
 const siguiente = document.querySelector("#contenedor-boton-siguiente");
-const aceptar = document.querySelector("#aceptar");
 const ganador = document.querySelector("#ganador");
 const contenedorSiguientePartido = document.querySelector("#contenedor-siguiente-partido");
-const contenedorPartido = document.querySelector("#contenedor-partido");
 const contenedorBotonEstadisticas= document.querySelector("#contenedor-boton-estadisticas");
-const seccionPartidos = document.querySelector("#seccion-partidos");
-const botonEstadisticas = document.querySelector("#boton-estadisticas");
 const contenedorEstadisticas = document.querySelector("#contenedor-estadisticas");
 
 const bannerVsBrasil = `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px>`;
-const bannerVsAlemania = `<img src="./imagenes/vs-alemania.jpg" id="banner-vs" width= 350px>`
+const bannerVsAlemania = `<img src="./imagenes/vs-alemania.jpg" id="banner-vs" width= 350px>`;
 let cantidadDePartidos = 0;
 
 let miPresupuesto = 4000;
@@ -67,7 +56,7 @@ function cargarJugadores(){
     fetch('./js/jugadores.json')
     .then((response) => response.json())
     .then((arrayJugadores) => {
-        arrayJugadores.forEach((jugador)=>{agregarJugadorADisponibles(jugador)})
+        arrayJugadores.forEach((jugador)=>{agregarJugadorADisponibles(jugador)});
     })
     .then(() => {prepararPantallaPrincipal();
     })
@@ -85,8 +74,9 @@ function prepararPantallaPrincipal(){
     iniciarSimulador();
 }
 
-function mostrarDineroDisponible(){//en dinero-disponible
-    dineroDisponible.innerHTML = `<div id="contenedor-dinero" class="bg-warning text-center"><h4><b>Dinero Disponible:<br> ${miPresupuesto}</b></h4></div>`;
+function mostrarDineroDisponible(){
+    dineroDisponible.innerHTML = `<div id="contenedor-dinero" class="text-center">
+                                <h4>Dinero Disponible:<br><b>$${miPresupuesto}</b></h4></div>`;
 }
 
 function mostrarTituloMisJugadores(){
@@ -94,7 +84,7 @@ function mostrarTituloMisJugadores(){
 }
 
 function mostrarBotonIniciar() {
-    contenedorBotonIniciar.innerHTML = `<button id="boton-iniciar"><h5>INICIAR <br>CAMPEONATO</h5></button>`;
+    contenedorBotonIniciar.innerHTML = `<button id="boton-iniciar"><h5>INICIAR</h5></button>`;
 }
 
 function iniciarSimulador(){
@@ -103,11 +93,7 @@ function iniciarSimulador(){
             guardarEquipoLocalStorage();
             guardarJugadoresDisponiblesLocalStorage(); 
             guardarDineroDisponibleLocalStorage(); 
-            cardsJugadoresDisponibles.innerHTML = "";
-            cardsMisJugadores.innerHTML = "";
-            dineroDisponible.innerHTML = "";
-            contenedorBotonIniciar.innerHTML="";
-            seccionMisJugadores.innerHTML="";
+            limpiarPantallaPrincipal();
             iniciarPartido(jugadoresBrasil, bannerVsBrasil);
             }else{
                 Swal.fire({icon: 'error',
@@ -115,16 +101,32 @@ function iniciarSimulador(){
             }})
 }
 
+function limpiarPantallaPrincipal(){
+    cardsJugadoresDisponibles.innerHTML = "";
+    cardsMisJugadores.innerHTML = "";
+    dineroDisponible.innerHTML = "";
+    contenedorBotonIniciar.innerHTML="";
+    seccionMisJugadores.innerHTML="";
+}
+
 function iniciarPartido(equipoRival, banner){
-            pantallaTorneo.innerHTML= banner;
+            bannerPartido.innerHTML= banner;
             mostrarEquipos(equipoRival);
-            contenedorVerResultados.innerHTML = `<button id="resultados">----VER RESULTADOS---</button>`;
+            contenedorVerResultados.innerHTML = `<button id="resultados">VER RESULTADOS</button>`;
             document.getElementById(`resultados`).addEventListener("click", ()=>{
                 contenedorVerResultados.innerHTML = "";
                 asignarPuntajeAJugadores(equipoRival);
                 cantidadDePartidos ++;
                 if(cantidadDePartidos < 2){
-                    contenedorSiguientePartido.innerHTML= `<button id="siguiente-partido">Siguiente Partido</button>`;
+                    siguientePartido();
+                }else{
+                    verEstadisticas();
+                }
+            })  
+}
+
+function siguientePartido(){
+    contenedorSiguientePartido.innerHTML= `<button id="siguiente-partido">SIGUIENTE PARTIDO</button>`;
                     document.getElementById(`siguiente-partido`).addEventListener("click", () => {
                                 contenedorPuntosFecha.innerHTML ="";
                                 ganador.innerHTML = "";
@@ -133,37 +135,45 @@ function iniciarPartido(equipoRival, banner){
                                 puntosVisitantes.innerHTML="";
                                 iniciarPartido(jugadoresAlemania, bannerVsAlemania);
                         })
-                }else{
-                    contenedorBotonEstadisticas.innerHTML= `<button id="boton-estadisticas">Ver estadísticas</button>`;
-                    document.getElementById("boton-estadisticas").addEventListener("click", ()=>{
-                        document.getElementById("contenedor-boton-estadisticas").innerHTML="";
-                        pantallaTorneo.innerHTML="";
-                        jugadoresLocales.innerHTML="";
-                        jugadoresVisitantes.innerHTML="";
-                        contenedorPuntosFecha.innerHTML ="";
-                        ganador.innerHTML = "";
-                        contenedorSiguientePartido.innerHTML ="";
-                        puntosLocales.innerHTML="";
-                        puntosVisitantes.innerHTML="";
-                        contenedorEstadisticas.innerHTML= `<p>PARTIDOS GANADOS: ${partidosGanados}</p>
-                                                            <p>PARTIDOS PERDIDOS: ${partidosPerdidos}</p>
-                                                            <p>PARTIDOS EMPATADOS: ${partidosEmpatados}</p>
-                                                            <h2>PUNTOS OBTENIDOS: ${misPuntosAcumulados}</h2>
-                                                            <button id="reiniciar-torneo">Reiniciar Torneo</button>`;
-                        document.getElementById("reiniciar-torneo").addEventListener("click", ()=>{
-                                    mostrarDineroDisponible();
-                                    contenedorEstadisticas.innerHTML ="";
-                                    dineroDisponible.innerHTML = `<h4><b>Dinero Disponible: ${miPresupuesto}</b></h4>`;
-                                    partidosGanados = 0;
-                                    partidosPerdidos = 0;
-                                    partidosEmpatados = 0;
-                                    cantidadDePartidos = 0;
-                                    misPuntosAcumulados = 0;
-                                    cargarJugadores();
-                         })
-                    })
-                }
-            })  
+}
+
+function verEstadisticas(){
+    contenedorBotonEstadisticas.innerHTML= `<button id="boton-estadisticas">VER ESTADÍSTICAS</button>`;
+    document.getElementById("boton-estadisticas").addEventListener("click", ()=>{
+        limpiarPantallaSecundaria();
+        contenedorEstadisticas.innerHTML= `<p>Partidos ganados: ${partidosGanados}</p>
+                                            <p>Partidos perdidos: ${partidosPerdidos}</p>
+                                            <p>Partidos empatados: ${partidosEmpatados}</p>
+                                            <h2>PUNTOS OBTENIDOS: ${misPuntosAcumulados}</h2>
+                                            <button id="reiniciar-torneo">REINICIAR TORNEO</button>`;
+        document.getElementById("reiniciar-torneo").addEventListener("click", ()=>{
+                    mostrarDineroDisponible();
+                    contenedorEstadisticas.innerHTML ="";
+                    dineroDisponible.innerHTML = `<h4>Dinero Disponible: ${miPresupuesto}</h4>`;
+                    reiniciarMarcas();
+                    cargarJugadores();
+         })
+    })
+}
+
+function limpiarPantallaSecundaria(){
+    document.getElementById("contenedor-boton-estadisticas").innerHTML="";
+        bannerPartido.innerHTML="";
+        jugadoresLocales.innerHTML="";
+        jugadoresVisitantes.innerHTML="";
+        contenedorPuntosFecha.innerHTML ="";
+        ganador.innerHTML = "";
+        contenedorSiguientePartido.innerHTML ="";
+        puntosLocales.innerHTML="";
+        puntosVisitantes.innerHTML="";
+}
+
+function reiniciarMarcas(){
+    partidosGanados = 0;
+    partidosPerdidos = 0;
+    partidosEmpatados = 0;
+    cantidadDePartidos = 0;
+    misPuntosAcumulados = 0;
 }
 
 function mostrarEquipos(equipoRival){
@@ -175,17 +185,6 @@ function mostrarEquipos(equipoRival){
     equipoRival.forEach((jugador) => {
             jugadoresVisitantes.innerHTML += `<li><img src="${jugador.img}"></li>`;
         });
-}
-
-function limpiarHTML(){
-                    pantallaTorneo.innerHTML = "";
-                    jugadoresLocales.innerHTML="";
-                    jugadoresVisitantes.innerHTML="";
-                    contenedorPuntosFecha.innerHTML="";
-                    puntosLocales.innerHTML ="";
-                    puntosVisitantes.innerHTML="";
-                    ganador.innerHTML = "";
-                    contenedorSiguientePartido.innerHTML ="";
 }
 
 //El jugador premium (los más caros), obtienen puntajes mayores a 7
@@ -218,12 +217,12 @@ function mostrarPuntajeJugadores(){
         ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/win.jpg?raw=true"></img>`
     }else{
         if(puntajeLocalesFecha < puntajeVisitantesFecha){
-        ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/lose.jpg?raw=true"></img>`
-        partidosPerdidos++;
+            ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/lose.jpg?raw=true"></img>`
+            partidosPerdidos++;
         }else{
-        misPuntosAcumulados += PUNTOS_PARTIDO_EMPATADO;
-        partidosEmpatados++;
-        ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/empate.jpg?raw=true"></img>`
+            misPuntosAcumulados += PUNTOS_PARTIDO_EMPATADO;
+            partidosEmpatados++;
+            ganador.innerHTML = `<img src="https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/empate.jpg?raw=true"></img>`
         }
     }
 }
@@ -233,9 +232,9 @@ function mostrarJugadoresDisponibles(){
     jugadoresDisponibles.forEach((jugador)=>{ //GENERA LAS CARDS EN EL HTML, Y A CADA BOTON LE ASIGNA UN ID NUMERICO
         const idBoton = `add-player${jugador.id}`
         cardsJugadoresDisponibles.innerHTML += `<li><img src= "${jugador.img}"> 
-                                                ${jugador.nombre}
-                                                <br><b>$${jugador.valor}</b>
-                                                <button id="${idBoton}">COMPRAR</button></li>`;
+                                                <b>${jugador.nombre}
+                                                <br>$${jugador.valor}</b>
+                                                <button id="${idBoton}">Contratar</button></li>`;
         });
 
     jugadoresDisponibles.forEach( (jugador) => {  //AGREGA LISTENERS A LOS BOTONES AL HACER CLICK
@@ -250,9 +249,9 @@ function mostrarJugadoresPlantel(){//GENERA LAS CARDS EN EL HTML, Y A CADA BOTON
     jugadoresPlantel.forEach((jugador)=>{
         const idBoton = `remove-player${jugador.id}`;
         cardsMisJugadores.innerHTML += `<li><img src= "${jugador.img}"> 
-                                        ${jugador.nombre}
-                                        <br>$${jugador.valor}
-                                        <button id="${idBoton}">VENDER</button></li>`;
+                                        <b>${jugador.nombre}
+                                        <br>$${jugador.valor}</b>
+                                        <button id="${idBoton}">Vender</button></li>`;
         });
     
     jugadoresPlantel.forEach( (jugador) => {//AGREGA LISTENERS A LOS BOTONES AL HACER CLICK
@@ -276,7 +275,7 @@ function guardarDineroDisponibleLocalStorage() {
 
 function getEquipoLocalStorage(){
     if(localStorage.getItem("equipo")){
-    jugadoresPlantel = JSON.parse(localStorage.getItem("equipo"));
+        jugadoresPlantel = JSON.parse(localStorage.getItem("equipo"));
     }
 }
 
@@ -360,15 +359,4 @@ function obtenerPuntajeRandom(max) {
 
 function obtenerPuntajeRandomPremium(max) {
     return Math.floor(Math.random() * max + PUNTAJE_MINIMO_JUGADOR_PREMIUM);
-}
-
-function asignarPuntajeEquipoRival(idEquipo){
-    const index = obtenerIndexDeEquipoRival(idEquipo);
-    if(index !== -1){
-        equiposRivales[index].puntajeJugadoresFecha = obtenerPuntajeRandom(51);
-    }
-}
-
-function obtenerIndexDeEquipoRival(idEquipo){
-    return equiposRivales.findIndex(equipo => equipo.id === idEquipo);
 }
