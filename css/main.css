@@ -108,6 +108,36 @@ p{
     font-size: 1.5rem;
 }
 
+.animacionBanner{
+    animation: myAnim 1s ease 0s 1 normal forwards;
+}
+
+@keyframes myAnim {
+	0% {
+		transform: scaleX(0);
+	}
+
+	100% {
+		transform: scaleX(1);
+	}
+}
+
+.animacionTexto{
+    animation: animacionTexto 4s linear 0s infinite normal forwards;
+}
+
+@keyframes animacionTexto {
+	0%,
+	50%{
+		opacity: 1;
+	}
+
+	25%,
+	75% {
+		opacity: 0;
+	}
+}
+
 button{
     background-color: rgb(17, 47, 182);
     color: white;

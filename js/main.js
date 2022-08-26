@@ -16,8 +16,8 @@ const contenedorSiguientePartido = document.querySelector("#contenedor-siguiente
 const contenedorBotonEstadisticas= document.querySelector("#contenedor-boton-estadisticas");
 const contenedorEstadisticas = document.querySelector("#contenedor-estadisticas");
 
-const bannerVsBrasil = `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px>`;
-const bannerVsAlemania = `<img src="./imagenes/vs-alemania.jpg" id="banner-vs" width= 350px>`;
+const bannerVsBrasil = `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px class="animacionBanner">`;
+const bannerVsAlemania = `<img src="./imagenes/vs-alemania.jpg" id="banner-vs" width= 350px class="animacionBanner">`;
 let cantidadDePartidos = 0;
 
 let miPresupuesto = 4000;
@@ -144,7 +144,7 @@ function verEstadisticas(){
         contenedorEstadisticas.innerHTML= `<p>Partidos ganados: ${partidosGanados}</p>
                                             <p>Partidos perdidos: ${partidosPerdidos}</p>
                                             <p>Partidos empatados: ${partidosEmpatados}</p>
-                                            <h2>PUNTOS OBTENIDOS: ${misPuntosAcumulados}</h2>
+                                            <h2 class="animacionTexto">PUNTOS OBTENIDOS: ${misPuntosAcumulados}</h2>
                                             <button id="reiniciar-torneo">REINICIAR TORNEO</button>`;
         document.getElementById("reiniciar-torneo").addEventListener("click", ()=>{
                     mostrarDineroDisponible();
