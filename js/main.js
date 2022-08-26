@@ -4,7 +4,6 @@ const subtituloJugadoresDisponibles = document.querySelector("#subtitulo-jugador
 const contenedorDinero = document.querySelector("#contenedor-dinero");
 const cardsMisJugadores = document.querySelector("#cards-mis-jugadores");
 const dineroDisponible = document.querySelector("#dinero-disponible");
-const subtituloDineroDisponible = document.querySelector("#subtitulo-dinero-disponible");
 const contenedorBotonIniciar = document.querySelector("#contenedor-boton-iniciar");
 const seccionDisponibles = document.querySelector("#seccion-disponibles");
 const seccionMisJugadores = document.querySelector("#seccion-mis-jugadores");
@@ -86,6 +85,10 @@ function prepararPantallaPrincipal(){
     iniciarSimulador();
 }
 
+function mostrarDineroDisponible(){//en dinero-disponible
+    dineroDisponible.innerHTML = `<div id="contenedor-dinero" class="bg-warning text-center"><h4><b>Dinero Disponible:<br> ${miPresupuesto}</b></h4></div>`;
+}
+
 function mostrarTituloMisJugadores(){
     seccionMisJugadores.innerHTML= `<h2><b>Mis Jugadores</b></h2>`;
 }
@@ -102,7 +105,7 @@ function iniciarSimulador(){
             guardarDineroDisponibleLocalStorage(); 
             cardsJugadoresDisponibles.innerHTML = "";
             cardsMisJugadores.innerHTML = "";
-            contenedorDinero.innerHTML = "";
+            dineroDisponible.innerHTML = "";
             contenedorBotonIniciar.innerHTML="";
             seccionMisJugadores.innerHTML="";
             iniciarPartido(jugadoresBrasil, bannerVsBrasil);
@@ -148,9 +151,9 @@ function iniciarPartido(equipoRival, banner){
                                                             <h2>PUNTOS OBTENIDOS: ${misPuntosAcumulados}</h2>
                                                             <button id="reiniciar-torneo">Reiniciar Torneo</button>`;
                         document.getElementById("reiniciar-torneo").addEventListener("click", ()=>{
-                                    dineroDisponible.innerHTML = `<div>$${miPresupuesto}</div>`;
+                                    mostrarDineroDisponible();
                                     contenedorEstadisticas.innerHTML ="";
-                                    contenedorDinero.innerHTML = `<h4><b>Dinero Disponible: ${miPresupuesto}</b></h4>`;
+                                    dineroDisponible.innerHTML = `<h4><b>Dinero Disponible: ${miPresupuesto}</b></h4>`;
                                     partidosGanados = 0;
                                     partidosPerdidos = 0;
                                     partidosEmpatados = 0;
@@ -344,11 +347,6 @@ function completarCompra(jugador){
     miPresupuesto -= jugador.valor;
     jugadoresPlantel.push(jugador);
     mostrarJugadoresPlantel();
-}
-
-function mostrarDineroDisponible(){
-    
-    dineroDisponible.innerHTML = `<h4><b>Dinero Disponible:<br> ${miPresupuesto}</b></h4>`;
 }
 
 function ordenarJugadoresDisponiblesPorId(){

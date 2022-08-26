@@ -67,6 +67,7 @@ p{
 }
 
 .contenedor{
+    margin-top: 1rem;
     display: flex;
     align-items: center;
 }
@@ -97,6 +98,7 @@ p{
 }
 #contenedor-dinero{
     border-radius: 1rem;
+    padding: 0.4rem;
 }
 
 #dinero-disponible{
@@ -106,10 +108,15 @@ p{
 button{
     background-color: rgb(95, 129, 253);
     border-radius: 1rem;
+    padding: 0.2rem;
 }
 
 #jugadores-locales, #jugadores-visitantes{
     background: rgba(0, 0, 0, 0.596);
+}
+
+#contenedor-iniciar-partido{
+    padding-top: 1rem;
 }
 
 #contenedor-partido{
