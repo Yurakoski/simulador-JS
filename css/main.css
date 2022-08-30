@@ -68,6 +68,14 @@ p{
     border-radius: 0.5rem;
 }
 
+#boton-iniciar:hover{
+    background-color: rgb(170, 17, 17);
+}
+
+button:hover{
+    background-color:rgb(27, 27, 138);
+}
+
 .contenedor{
     margin-top: 1rem;
     display: flex;
@@ -177,6 +185,7 @@ button{
     margin-right: 1.5rem;
     border-radius: 2rem;
 }
+
 #puntos-locales li, #puntos-visitantes li{
     padding-top: 1.2rem;
     padding-bottom: 1.4rem;
@@ -231,6 +240,10 @@ button{
     font-size: 1.5rem;
 }
 
+#reiniciar-torneo{
+    margin-bottom: 1rem;
+}
+
 @media only screen and (max-width: 480px) {
     
     #cards-mis-jugadores img, #cards-disponibles img{
@@ -244,6 +257,10 @@ button{
 
     #boton-iniciar h5{
         font-size: 0.8rem;
+    }
+
+    #jugadores-locales img, #jugadores-visitantes img{
+        height: 4rem;
     }
 
     #siguiente-partido{
