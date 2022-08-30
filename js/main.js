@@ -16,8 +16,8 @@ const contenedorSiguientePartido = document.querySelector("#contenedor-siguiente
 const contenedorBotonEstadisticas= document.querySelector("#contenedor-boton-estadisticas");
 const contenedorEstadisticas = document.querySelector("#contenedor-estadisticas");
 
-const bannerVsBrasil = `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px class="animacionBanner">`;
-const bannerVsAlemania = `<img src="./imagenes/vs-alemania.jpg" id="banner-vs" width= 350px class="animacionBanner">`;
+const bannerVsBrasil = `<img src="./imagenes/banner-vs.jpg" id="banner-vs" width= 350px class="animacionBanner" alt="banner presentación Argentina vs Brasil">`;
+const bannerVsAlemania = `<img src="./imagenes/vs-alemania.jpg" id="banner-vs" width= 350px class="animacionBanner" alt="banner presentación Argentina vs Alemania">`;
 let cantidadDePartidos = 0;
 
 let miPresupuesto = 4000;

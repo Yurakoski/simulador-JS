@@ -259,6 +259,10 @@ button{
         font-size: 0.8rem;
     }
 
+    #puntos-locales li, #puntos-visitantes li{
+        padding-top: 2.2rem;
+    }
+
     #jugadores-locales img, #jugadores-visitantes img{
         height: 4rem;
     }
