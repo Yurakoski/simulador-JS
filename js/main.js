@@ -48,8 +48,8 @@ const jugadoresBrasil = [
     ];    
 
 let jugadoresPlantel = [];
-Swal.fire('Adquiera 4 jugadores para poder comenzar');
 
+Swal.fire('Adquiera 4 jugadores para poder comenzar');
 cargarJugadores();
 
 function cargarJugadores(){
