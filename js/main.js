@@ -31,7 +31,7 @@ const PUNTOS_PARTIDO_GANADO = 3;
 const PUNTOS_PARTIDO_EMPATADO = 1;
 const PUNTAJE_MINIMO_JUGADOR_PREMIUM = 7;
 
-let jugadoresDisponibles = [];
+let jugadoresDisponibles = [{nombre: "nico"}, {fruta: "manzana"}];
 
 const jugadoresBrasil = [
         {id: 1, nombre: "Dida", img: "https://github.com/Yurakoski/simulador-JS/blob/main/imagenes/dida.jpg?raw=true", puntaje: 0}, 
